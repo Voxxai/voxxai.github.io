@@ -1,0 +1,246 @@
+/* Root Variables */
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #333;
+    --background-color: #f9f9f9;
+    --font-family: 'Arial', sans-serif;
+}
+
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    color: var(--secondary-color);
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+h1, h2, h3 {
+    margin-bottom: 1rem;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    overflow: hidden;
+}
+
+/* Header and Navigation */
+header {
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.logo a {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+.nav-container .links {
+    display: flex;
+}
+
+.nav-container .links a {
+    margin-left: 1.5rem;
+    color: var(--secondary-color);
+    font-weight: 500;
+}
+
+.hamburg {
+    display: none;
+}
+
+/* Navigation Styles */
+
+/* Remove styles for the hamburger menu icon */
+.hamburg {
+    display: none;
+}
+
+/* Adjust the navigation links to display inline */
+.nav-container .links {
+    display: flex;
+    /* Add any additional styling as needed */
+}
+
+.nav-container .links a {
+    margin-left: 1.5rem;
+    color: var(--secondary-color);
+    font-weight: 500;
+    /* Add any additional styling as needed */
+}
+
+/* Remove styles for the dropdown menu */
+/* Remove or comment out any styles related to the .dropdown class */
+
+/* Hero Section */
+.hero {
+    background: url('imgs/hero-bg.jpg') center/cover no-repeat;
+    color: #fff;
+    text-align: center;
+    padding: 4rem 0;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+}
+
+.hero h1 span {
+    color: var(--primary-color);
+}
+
+.hero .subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.hero .typewriter-text {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.hero .social-links a {
+    margin: 0 0.5rem;
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+.hero .btn {
+    margin-top: 2rem;
+}
+
+.hero .btn button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    background-color: var(--primary-color);
+    color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+/* About Section */
+.about {
+    padding: 4rem 0;
+}
+
+.about h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.about-content {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.about-content .left,
+.about-content .right {
+    flex: 1 1 45%;
+    margin: 1rem;
+}
+
+.about-content .left img {
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+.about-content .right p {
+    margin-bottom: 1rem;
+}
+
+.about-content .button button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    background-color: var(--primary-color);
+    color: #fff;
+    cursor: pointer;
+}
+
+/* Skills Section */
+.skills {
+    background-color: #fafafa;
+    padding: 4rem 0;
+}
+
+.skills h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.skill {
+    width: 120px;
+    margin: 1rem;
+    text-align: center;
+}
+
+.skill .icon {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+}
+
+.skill span {
+    display: block;
+    font-size: 1rem;
+}
+
+/* Services Section */
+.services {
+    padding: 4rem 0;
+}
+
+.services h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/* Contact Section */
+.contact {
+    background-color: #fafafa;
+    padding: 4rem 0;
+}
+
+.contact h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+/* ...existing desktop styles... */
+
+/* Remove responsive @media queries and mobile-specific styles */
+
+/* Ensure that the desktop styles are optimized for larger screens */

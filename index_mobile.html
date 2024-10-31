@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voxxai - Mobile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="styles_mobile.css">
+    <script>
+        if (window.innerWidth >= 768) {
+            window.location.href = "index.html";
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="nav-container">
+                <div class="logo">
+                    <a href="#home">Voxxai</a>
+                </div>
+                <i class="fa-solid fa-bars hamburg" onclick="openMenu()"></i>
+            </div>
+            <div class="dropdown" id="mobileMenu">
+                <div class="links">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#services">Services</a>
+                    <a href="#contact">Contact</a>
+                    <i class="fa-solid fa-xmark cancel" onclick="closeMenu()"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="container">
+                <h1>Hi, I'm <span>Gilian Kranendonk</span></h1>
+                <p class="subtitle">I'm a <span class="typewriter-text">Software Engineer</span></p>
+                <p>BLABLABLA</p>
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-github"></i></a>
+                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+                <div class="btn">
+                    <button onclick="window.location.href='mailto:gilkranendonk@gmail.com'">Contact Me</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about">
+            <div class="container">
+                <h2>About Me</h2>
+                <div class="about-content">
+                    <div class="left">
+                        <img src="imgs/Gilian_Kranendonk.jpg" alt="Gilian Kranendonk">
+                    </div>
+                    <div class="right">
+                        <div class="topic">
+                            <span>Who am I?</span>
+                        </div>
+                        <p>BLABLABLA</p>
+                        <div class="button">
+                            <button onclick="window.location.href='downloads/CVs_Gilian_Kranendonk.zip'" download>Download CV's</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="skills">
+            <div class="container">
+                <h2>Skills</h2>
+                <div class="skills-details">
+                    <div class="skills-container">
+                        <div class="skill">
+                            <div class="icon">
+                                <i class="fa-brands fa-html5"></i>
+                            </div>
+                            <span>HTML</span>
+                        </div>
+                        <div class="skill">
+                            <div class="icon">
+                                <i class="fa-brands fa-css3"></i>
+                            </div>
+                            <span>CSS</span>
+                        </div>
+                        <div class="skill">
+                            <div class="icon">
+                                <i class="fa-brands fa-js"></i>
+                            </div>
+                            <span>JavaScript</span>
+                        </div>
+                        <div class="skill">
+                            <div class="icon">
+                                <i class="fa-brands fa-react"></i>
+                            </div>
+                            <span>React</span>
+                        </div>
+                        <div class="skill">
+                            <div class="icon">
+                                <i class="fa-brands fa-node"></i>
+                            </div>
+                            <span>Node</span>
+                        </div>
+                        <div class="skill">
+                            <div class="icon">
+                                <i class="fa-brands fa-python"></i>
+                            </div>
+                            <span>Python</span>
+                        </div>
+                        <div class="skill">
+                            <div class="icon">
+                                <i class="fa-brands fa-microsoft"></i>
+                            </div>
+                            <span>.NET</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="services">
+            <div class="container">
+                <h2>Services</h2>
+                <p>BLABLABLA</p>
+                <!-- Add your services content here -->
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2>Contact</h2>
+                <p>Feel free to reach out to me via email or through my social media profiles.</p>
+                <div class="contact-details">
+                    <p>Email: <a href="mailto:gilkranendonk@gmail.com">gilkranendonk@gmail.com</a></p>
+                    <!-- Add more contact details if needed -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Voxxai. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function openMenu() {
+            document.getElementById('mobileMenu').style.display = 'block';
+        }
+        function closeMenu() {
+            document.getElementById('mobileMenu').style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>
