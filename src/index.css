@@ -1,0 +1,93 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply min-h-screen bg-gradient-to-br from-midnight via-black to-ink text-slate-100 font-display antialiased;
+    background-attachment: fixed;
+    background-size: 120% 120%;
+  }
+
+  ::selection {
+    background: #ff4bcb44;
+    color: #41f3ff;
+  }
+}
+
+@layer components {
+  .neon-panel {
+    @apply relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-innerNeon;
+  }
+
+  .neon-divider {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-neonPink to-transparent opacity-70;
+  }
+}
+
+.glow-blob {
+  position: absolute;
+  width: 380px;
+  height: 380px;
+  border-radius: 9999px;
+  filter: blur(120px);
+  opacity: 0.65;
+  mix-blend-mode: screen;
+  animation: float 14s ease-in-out infinite alternate;
+}
+
+.glow-blob.pink {
+  background: #ff4bcb;
+  left: -120px;
+  top: -80px;
+}
+.glow-blob.cyan {
+  background: #41f3ff;
+  right: -140px;
+  bottom: -60px;
+  animation-duration: 18s;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px) translateX(0px);
+  }
+  50% {
+    transform: translateY(-18px) translateX(12px);
+  }
+  100% {
+    transform: translateY(10px) translateX(-8px);
+  }
+}
+
+@keyframes scanline {
+  0% {
+    background-position: 0 -100%;
+  }
+  100% {
+    background-position: 0 200%;
+  }
+}
+
+.grid-overlay {
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.06) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 28px 28px;
+  opacity: 0.4;
+}
+
+.scanlines {
+  background: linear-gradient(
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0)
+  );
+  background-size: 100% 12px;
+  opacity: 0.08;
+  animation: scanline 12s linear infinite;
+}
