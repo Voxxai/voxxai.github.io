@@ -14,7 +14,7 @@ const otherProjects = [
     description:
       "Full-stack school platform with CRA frontend and Node/Express backend, covering events, news, profiles, and 2FA-secured auth.",
     stack: ["React", "Node.js", "Express", "MySQL"],
-    label: "Full-stack school project",
+    label: "Full-stack",
     link: "https://github.com/Voxxai/ProjectC",
   },
   {
