@@ -6,9 +6,25 @@
 
 @layer base {
   body {
-    @apply min-h-screen bg-gradient-to-br from-midnight via-black to-ink text-slate-100 font-display antialiased;
+    @apply min-h-screen text-slate-100 font-display antialiased;
+    background: radial-gradient(
+        circle at 20% 18%,
+        rgba(255, 75, 203, 0.08),
+        transparent 38%
+      ),
+      radial-gradient(
+        circle at 82% 12%,
+        rgba(65, 243, 255, 0.09),
+        transparent 36%
+      ),
+      radial-gradient(
+        circle at 50% 68%,
+        rgba(255, 75, 203, 0.06),
+        transparent 42%
+      ),
+      linear-gradient(135deg, #0a0d13 0%, #0c1220 45%, #0f1525 100%);
     background-attachment: fixed;
-    background-size: 120% 120%;
+    background-size: 160% 160%;
   }
 
   ::selection {

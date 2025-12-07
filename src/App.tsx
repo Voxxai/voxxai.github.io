@@ -1,83 +1,18 @@
-import React from "react";
-
-type RepoCard = {
-  name: string;
-  description: string;
-  html_url: string;
-  language: string;
-  archived: boolean;
-};
-
-const otherProjects: RepoCard[] = [
-  {
-    name: "voxxai.github.io",
-    description:
-      "This portfolio site: React + TypeScript + Tailwind with neon styling deployed on GitHub Pages.",
-    html_url: "https://github.com/Voxxai/voxxai.github.io",
-    language: "TypeScript",
-    archived: false,
-  },
-  {
-    name: "salaryCalculator",
-    description:
-      "React/TypeScript tool to calculate shifts, allowances, and totals using Dutch CAO logic.",
-    html_url: "https://github.com/Voxxai/salaryCalculator",
-    language: "TypeScript",
-    archived: false,
-  },
-  {
-    name: "SpaceDefence",
-    description:
-      "MonoGame C# space defense game with custom colliders, AI-driven enemies, and multi-weapon arenas.",
-    html_url: "https://github.com/Voxxai/SpaceDefence",
-    language: "C#",
-    archived: true,
-  },
-  {
-    name: "PirateGame",
-    description:
-      "C# MonoGame pirate prototype featuring ship combat, cannon volleys, and quick exploration loops.",
-    html_url: "https://github.com/Voxxai/PirateGame",
-    language: "C#",
-    archived: true,
-  },
-  {
-    name: "PongGame",
-    description:
-      "Four-player Pong in MonoGame with AI paddles, speed boosts, and scoreboard/lives tracking.",
-    html_url: "https://github.com/Voxxai/PongGame",
-    language: "C#",
-    archived: true,
-  },
-  {
-    name: "ProjectC",
-    description:
-      "Full-stack school platform (CRA + Node/Express/MySQL) covering events, news, profiles, and 2FA-secured auth.",
-    html_url: "https://github.com/Voxxai/ProjectC",
-    language: "JavaScript",
-    archived: true,
-  },
-  {
-    name: "Django_Project",
-    description:
-      "Learning project in Django/Python with CRUD patterns and classic Django templating/auth flows.",
-    html_url: "https://github.com/Voxxai/Django_Project",
-    language: "Python",
-    archived: true,
-  },
-  {
-    name: "Voxxai",
-    description:
-      "Public profile repo with GitHub profile README configuration and metadata.",
-    html_url: "https://github.com/Voxxai/Voxxai",
-    language: "Markdown",
-    archived: false,
-  },
-];
+import React, { useState } from "react";
+import { Home } from "./components/Home";
+import { About } from "./components/About";
+import { Projects } from "./components/Projects";
+import { Skills } from "./components/Skills";
+import { Contact } from "./components/Contact";
+import { Page } from "./types/pages";
 
 const App: React.FC = () => {
+  const [currentPage, setCurrentPage] = useState<Page>("home");
+
+  const handleNavigate = (page: Page) => setCurrentPage(page);
+
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="relative min-h-screen overflow-hidden bg-midnight font-sans text-slate-200 selection:bg-neonPink/30 selection:text-white">
       <div className="glow-blob pink" aria-hidden />
       <div className="glow-blob cyan" aria-hidden />
       <div className="absolute inset-0 grid-overlay" aria-hidden />
@@ -86,189 +21,14 @@ const App: React.FC = () => {
         aria-hidden
       />
 
-      <main className="relative z-10 mx-auto flex min-h-screen max-w-5xl flex-col gap-10 px-6 py-12 sm:py-16">
-        <header className="neon-panel p-8 sm:p-10">
-          <div className="flex flex-col gap-4">
-            <p className="text-sm uppercase tracking-[0.35em] text-neonCyan">
-              Software Engineer
-            </p>
-            <h1 className="text-5xl font-bold leading-tight text-neonPink sm:text-6xl drop-shadow-[0_0_24px_rgba(255,75,203,0.45)]">
-              VOXXAI
-            </h1>
-            <p className="max-w-2xl text-lg text-slate-200">
-              I build expressive, resilient products with React, TypeScript, and
-              modern tooling. Cyberpunk-infused, shipping-grade code.
-            </p>
-            <div className="flex flex-wrap items-center gap-3 text-sm text-slate-300">
-              <span className="rounded-full border border-neonPink/40 bg-neonPink/10 px-3 py-1 shadow-glowPink">
-                React
-              </span>
-              <span className="rounded-full border border-neonCyan/40 bg-neonCyan/10 px-3 py-1 shadow-glowCyan">
-                TypeScript
-              </span>
-              <span className="rounded-full border border-white/10 px-3 py-1">
-                Tailwind
-              </span>
-              <span className="rounded-full border border-white/10 px-3 py-1">
-                GitHub Pages
-              </span>
-            </div>
-          </div>
-        </header>
+      {currentPage === "home" && <Home onNavigate={handleNavigate} />}
+      {currentPage === "about" && <About onNavigate={handleNavigate} />}
+      {currentPage === "projects" && <Projects onNavigate={handleNavigate} />}
+      {currentPage === "skills" && <Skills onNavigate={handleNavigate} />}
+      {currentPage === "contact" && <Contact onNavigate={handleNavigate} />}
 
-        <section className="neon-panel p-8 sm:p-10">
-          <div className="flex items-start justify-between gap-6">
-            <div className="flex flex-col gap-2">
-              <p className="text-xs uppercase tracking-[0.3em] text-neonCyan">
-                Featured Project
-              </p>
-              <h2 className="text-3xl font-semibold text-white">
-                Salary Calculator
-              </h2>
-              <p className="max-w-xl text-base text-slate-200">
-                React + TypeScript tool to calculate shifts and allowances based
-                on Dutch CAO rules.
-              </p>
-              <div className="neon-divider" />
-              <div className="flex flex-wrap gap-3 pt-2 text-sm text-slate-200">
-                <span className="rounded-full border border-neonPink/60 bg-neonPink/15 px-3 py-1 shadow-glowPink">
-                  React
-                </span>
-                <span className="rounded-full border border-neonCyan/60 bg-neonCyan/15 px-3 py-1 shadow-glowCyan">
-                  TypeScript
-                </span>
-                <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1">
-                  CAO logic
-                </span>
-              </div>
-              <div className="pt-4">
-                <a
-                  className="inline-flex items-center gap-2 rounded-lg border border-neonCyan/60 bg-gradient-to-r from-neonCyan/15 to-neonPink/15 px-4 py-3 text-sm font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:border-neonPink/70 hover:shadow-glowPink"
-                  href="/salaryCalculator"
-                >
-                  View the tool &gt;
-                </a>
-              </div>
-            </div>
-            <div className="hidden h-full min-w-[180px] items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-4 py-6 shadow-innerNeon sm:flex">
-              <div className="text-center text-sm text-slate-200">
-                <p className="text-neonPink font-semibold">Live</p>
-                <p className="text-xs uppercase tracking-[0.25em] text-slate-400">
-                  /salaryCalculator
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="neon-panel p-8 sm:p-10">
-          <div className="flex flex-col gap-6">
-            <div className="flex items-center justify-between flex-wrap gap-3">
-              <div>
-                <p className="text-xs uppercase tracking-[0.3em] text-neonCyan">
-                  Other Projects
-                </p>
-                <h3 className="text-3xl font-semibold text-white">
-                  Selected work from GitHub
-                </h3>
-              </div>
-              <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-sm text-slate-200">
-                Curated static showcase
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-              {otherProjects.map((project: RepoCard) => (
-                <div
-                  key={project.name}
-                  className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-lg transition duration-200 hover:-translate-y-1 hover:border-neonPink/60 hover:shadow-glowPink"
-                >
-                  <div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-200 bg-gradient-to-br from-neonPink/10 via-transparent to-neonCyan/10"
-                    aria-hidden
-                  />
-                  <div className="relative flex flex-col gap-3">
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="flex flex-col gap-1">
-                        <h4 className="text-xl font-semibold text-white drop-shadow-[0_0_12px_rgba(65,243,255,0.25)]">
-                          {project.name}
-                        </h4>
-                        <p className="text-sm text-slate-200 leading-relaxed">
-                          {project.description?.trim() || "No description yet."}
-                        </p>
-                      </div>
-                      <span
-                        className={`rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.15em] ${
-                          project.archived
-                            ? "border-white/30 bg-white/5 text-slate-200"
-                            : "border-neonCyan/50 bg-neonCyan/10 text-neonCyan"
-                        }`}
-                      >
-                        {project.archived ? "Archived" : "Active"}
-                      </span>
-                    </div>
-
-                    <div className="flex flex-wrap gap-2">
-                      <span className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs text-slate-100">
-                        {project.language || "Unknown"}
-                      </span>
-                      <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-slate-100">
-                        GitHub
-                      </span>
-                    </div>
-
-                    <div className="pt-2">
-                      <a
-                        className="inline-flex items-center gap-2 text-sm font-semibold text-neonCyan transition hover:text-neonPink"
-                        href={project.html_url}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        View on GitHub
-                        <span aria-hidden>&gt;</span>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="neon-panel p-8 sm:p-10">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-neonCyan">
-                More coming soon
-              </p>
-              <h3 className="text-2xl font-semibold text-white">
-                Stay tuned for the next drop
-              </h3>
-              <p className="mt-2 max-w-xl text-base text-slate-200">
-                Building new experiments and tools with a neon, anime-adjacent
-                edge. Check back for fresh deployments.
-              </p>
-            </div>
-            <div className="hidden sm:flex h-14 w-14 items-center justify-center rounded-full border border-white/15 bg-white/5 text-neonPink shadow-glowPink">
-              <span className="text-xl">*</span>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <footer className="relative z-10 mx-auto flex max-w-5xl flex-col gap-2 px-6 pb-12 text-sm text-slate-300 sm:flex-row sm:items-center sm:justify-between">
-        <span>Deployed via GitHub Pages · voxxai.nl</span>
-        <a
-          className="inline-flex items-center gap-2 text-neonCyan transition hover:text-neonPink"
-          href="https://github.com/Voxxai"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <span className="text-lg" aria-hidden>
-            [GH]
-          </span>
-          GitHub
-        </a>
+      <footer className="relative z-10 mx-auto flex max-w-5xl justify-center px-6 pb-8 pt-4 text-xs text-slate-500">
+        <span>© {new Date().getFullYear()} Voxxai · State-based Portfolio</span>
       </footer>
     </div>
   );
