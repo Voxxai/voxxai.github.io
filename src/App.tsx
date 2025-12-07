@@ -1,37 +1,77 @@
 import React from "react";
 
-const otherProjects = [
+type RepoCard = {
+  name: string;
+  description: string;
+  html_url: string;
+  language: string;
+  archived: boolean;
+};
+
+const otherProjects: RepoCard[] = [
   {
-    title: "SpaceDefence",
+    name: "voxxai.github.io",
     description:
-      "MonoGame C# space defense game with custom collider system, AI-driven enemies, and multiple weapons in a top-down arena.",
-    stack: ["C#", "MonoGame"],
-    label: "Game dev",
-    link: "https://github.com/Voxxai/SpaceDefence",
+      "This portfolio site: React + TypeScript + Tailwind with neon styling deployed on GitHub Pages.",
+    html_url: "https://github.com/Voxxai/voxxai.github.io",
+    language: "TypeScript",
+    archived: false,
   },
   {
-    title: "ProjectC",
+    name: "salaryCalculator",
     description:
-      "Full-stack school platform with CRA frontend and Node/Express backend, covering events, news, profiles, and 2FA-secured auth.",
-    stack: ["React", "Node.js", "Express", "MySQL"],
-    label: "Full-stack",
-    link: "https://github.com/Voxxai/ProjectC",
+      "React/TypeScript tool to calculate shifts, allowances, and totals using Dutch CAO logic.",
+    html_url: "https://github.com/Voxxai/salaryCalculator",
+    language: "TypeScript",
+    archived: false,
   },
   {
-    title: "PongGame",
+    name: "SpaceDefence",
     description:
-      "Four-player Pong built in C# MonoGame with AI-controlled paddles, dynamic speed boosts, and scoreboard/lives tracking.",
-    stack: ["C#", "MonoGame"],
-    label: "Game dev",
-    link: "https://github.com/Voxxai/PongGame",
+      "MonoGame C# space defense game with custom colliders, AI-driven enemies, and multi-weapon arenas.",
+    html_url: "https://github.com/Voxxai/SpaceDefence",
+    language: "C#",
+    archived: true,
   },
   {
-    title: "album-frontend",
+    name: "PirateGame",
     description:
-      "React + Material UI single-page app for album CRUD against a REST API, with detail views and validated forms.",
-    stack: ["React", "Material UI", "REST"],
-    label: "Experimental",
-    link: "https://github.com/Voxxai/album-frontend",
+      "C# MonoGame pirate prototype featuring ship combat, cannon volleys, and quick exploration loops.",
+    html_url: "https://github.com/Voxxai/PirateGame",
+    language: "C#",
+    archived: true,
+  },
+  {
+    name: "PongGame",
+    description:
+      "Four-player Pong in MonoGame with AI paddles, speed boosts, and scoreboard/lives tracking.",
+    html_url: "https://github.com/Voxxai/PongGame",
+    language: "C#",
+    archived: true,
+  },
+  {
+    name: "ProjectC",
+    description:
+      "Full-stack school platform (CRA + Node/Express/MySQL) covering events, news, profiles, and 2FA-secured auth.",
+    html_url: "https://github.com/Voxxai/ProjectC",
+    language: "JavaScript",
+    archived: true,
+  },
+  {
+    name: "Django_Project",
+    description:
+      "Learning project in Django/Python with CRUD patterns and classic Django templating/auth flows.",
+    html_url: "https://github.com/Voxxai/Django_Project",
+    language: "Python",
+    archived: true,
+  },
+  {
+    name: "Voxxai",
+    description:
+      "Public profile repo with GitHub profile README configuration and metadata.",
+    html_url: "https://github.com/Voxxai/Voxxai",
+    language: "Markdown",
+    archived: false,
   },
 ];
 
@@ -133,14 +173,14 @@ const App: React.FC = () => {
                 </h3>
               </div>
               <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-sm text-slate-200">
-                Curated by Voxxai
+                Curated static showcase
               </span>
             </div>
 
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-              {otherProjects.map((project) => (
+              {otherProjects.map((project: RepoCard) => (
                 <div
-                  key={project.title}
+                  key={project.name}
                   className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-lg transition duration-200 hover:-translate-y-1 hover:border-neonPink/60 hover:shadow-glowPink"
                 >
                   <div
@@ -151,32 +191,36 @@ const App: React.FC = () => {
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex flex-col gap-1">
                         <h4 className="text-xl font-semibold text-white drop-shadow-[0_0_12px_rgba(65,243,255,0.25)]">
-                          {project.title}
+                          {project.name}
                         </h4>
                         <p className="text-sm text-slate-200 leading-relaxed">
-                          {project.description}
+                          {project.description?.trim() || "No description yet."}
                         </p>
                       </div>
-                      <span className="rounded-full border border-neonCyan/50 bg-neonCyan/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.15em] text-neonCyan">
-                        {project.label}
+                      <span
+                        className={`rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.15em] ${
+                          project.archived
+                            ? "border-white/30 bg-white/5 text-slate-200"
+                            : "border-neonCyan/50 bg-neonCyan/10 text-neonCyan"
+                        }`}
+                      >
+                        {project.archived ? "Archived" : "Active"}
                       </span>
                     </div>
 
                     <div className="flex flex-wrap gap-2">
-                      {project.stack.map((tech) => (
-                        <span
-                          key={tech}
-                          className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs text-slate-100"
-                        >
-                          {tech}
-                        </span>
-                      ))}
+                      <span className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs text-slate-100">
+                        {project.language || "Unknown"}
+                      </span>
+                      <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-slate-100">
+                        GitHub
+                      </span>
                     </div>
 
                     <div className="pt-2">
                       <a
                         className="inline-flex items-center gap-2 text-sm font-semibold text-neonCyan transition hover:text-neonPink"
-                        href={project.link}
+                        href={project.html_url}
                         target="_blank"
                         rel="noreferrer"
                       >
