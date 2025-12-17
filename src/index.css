@@ -23,8 +23,8 @@
         transparent 42%
       ),
       linear-gradient(135deg, #0a0d13 0%, #0c1220 45%, #0f1525 100%);
-    background-attachment: fixed;
-    background-size: 160% 160%;
+    background-attachment: scroll;
+    background-size: 140% 140%;
   }
 
   ::selection {
@@ -49,73 +49,74 @@
   overflow: hidden;
   pointer-events: none;
   z-index: 0;
+  will-change: transform, opacity;
 }
 
 .aurora {
   position: absolute;
   inset: -20% -10%;
-  filter: blur(90px);
-  opacity: 0.45;
+  filter: blur(70px);
+  opacity: 0.36;
   mix-blend-mode: screen;
   background: radial-gradient(circle at 30% 30%, rgba(255, 75, 203, 0.45), rgba(12, 18, 32, 0.35));
-  animation: drift 26s ease-in-out infinite alternate;
+  animation: drift 32s ease-in-out infinite alternate;
 }
 
 .aurora.aurora-two {
   background: radial-gradient(circle at 70% 50%, rgba(65, 243, 255, 0.5), rgba(12, 18, 32, 0.4));
-  animation-duration: 32s;
-  animation-delay: 4s;
-  transform: rotate(8deg);
+  animation-duration: 40s;
+  animation-delay: 6s;
+  transform: rotate(6deg);
 }
 
 .orbital {
   position: absolute;
   border-radius: 9999px;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  width: 640px;
-  height: 640px;
-  top: 8%;
-  left: -12%;
+  width: 520px;
+  height: 520px;
+  top: 12%;
+  left: -10%;
   transform-origin: center;
   mix-blend-mode: screen;
-  box-shadow: 0 0 60px rgba(255, 75, 203, 0.25);
-  animation: slowSpin 38s linear infinite;
+  box-shadow: 0 0 36px rgba(255, 75, 203, 0.22);
+  animation: slowSpin 44s linear infinite;
 }
 
 .orbital.orbital-two {
-  width: 520px;
-  height: 520px;
-  top: 52%;
-  right: -18%;
+  width: 440px;
+  height: 440px;
+  top: 56%;
+  right: -14%;
   left: auto;
   border-color: rgba(65, 243, 255, 0.2);
-  box-shadow: 0 0 40px rgba(65, 243, 255, 0.25);
-  animation-duration: 46s;
+  box-shadow: 0 0 28px rgba(65, 243, 255, 0.22);
+  animation-duration: 52s;
   animation-direction: reverse;
 }
 
 .background-tracer {
   position: absolute;
-  height: 3px;
-  width: 420px;
+  height: 2px;
+  width: 340px;
   border-radius: 9999px;
   background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 75, 203, 0.8));
-  opacity: 0.6;
-  filter: drop-shadow(0 0 18px rgba(255, 75, 203, 0.35));
-  animation: horizonSweep 18s ease-in-out infinite;
+  opacity: 0.5;
+  filter: drop-shadow(0 0 12px rgba(255, 75, 203, 0.25));
+  animation: horizonSweep 22s ease-in-out infinite;
 }
 
 .background-tracer.tracer-a {
   top: 18%;
-  left: -28%;
+  left: -22%;
 }
 
 .background-tracer.tracer-b {
   bottom: 14%;
-  right: -30%;
+  right: -24%;
   background: linear-gradient(90deg, rgba(65, 243, 255, 0), rgba(65, 243, 255, 0.8));
-  filter: drop-shadow(0 0 18px rgba(65, 243, 255, 0.35));
-  animation-delay: 3s;
+  filter: drop-shadow(0 0 12px rgba(65, 243, 255, 0.25));
+  animation-delay: 4s;
 }
 
 @keyframes drift {
@@ -163,7 +164,7 @@
   height: 380px;
   border-radius: 9999px;
   filter: blur(120px);
-  opacity: 0.65;
+  opacity: 0.6;
   mix-blend-mode: screen;
   animation: float 14s ease-in-out infinite alternate;
 }
@@ -220,6 +221,48 @@
   background-size: 100% 12px;
   opacity: 0.08;
   animation: scanline 12s linear infinite;
+}
+
+.motion-economy .aurora {
+  filter: blur(50px);
+  opacity: 0.22;
+  animation-duration: 52s;
+}
+
+.motion-economy .orbital,
+.motion-economy .background-tracer {
+  display: none;
+}
+
+.motion-economy .glow-blob {
+  filter: blur(90px);
+  opacity: 0.38;
+  animation-duration: 22s;
+}
+
+.motion-economy .grid-overlay {
+  opacity: 0.2;
+}
+
+.motion-economy .scanlines {
+  opacity: 0.04;
+  animation-duration: 18s;
+}
+
+.motion-economy .jinx-ring,
+.motion-economy .jinx-tracer,
+.motion-economy .jinx-spark {
+  animation-duration: 28s;
+  opacity: 0.6;
+}
+
+.motion-economy .jinx-tracer {
+  animation-duration: 12s;
+  opacity: 0.75;
+}
+
+.motion-economy .jinx-spark {
+  animation-duration: 9s;
 }
 
 .jinx-rings {

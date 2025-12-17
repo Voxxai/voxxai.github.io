@@ -8,11 +8,33 @@ import { Page } from "./types/pages";
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<Page>("home");
+  const [motionMode, setMotionMode] = useState<"full" | "economy">("full");
+
+  React.useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 1024px)");
+    const connection = (navigator as unknown as { connection?: { saveData?: boolean } }).connection;
+    const isLowPower = () => {
+      const lowCpu = typeof navigator.hardwareConcurrency === "number" && navigator.hardwareConcurrency <= 4;
+      const hasSaveData = connection?.saveData;
+      return mediaQuery.matches || lowCpu || Boolean(hasSaveData);
+    };
+
+    const handleChange = () => setMotionMode(isLowPower() ? "economy" : "full");
+
+    handleChange();
+    mediaQuery.addEventListener("change", handleChange);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleChange);
+    };
+  }, []);
 
   const handleNavigate = (page: Page) => setCurrentPage(page);
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-midnight font-sans text-slate-200 selection:bg-neonPink/30 selection:text-white">
+    <div
+      className={`relative min-h-screen overflow-hidden bg-midnight font-sans text-slate-200 selection:bg-neonPink/30 selection:text-white ${motionMode === "economy" ? "motion-economy" : ""}`}
+    >
       <div className="global-animations" aria-hidden>
         <div className="aurora aurora-one" />
         <div className="aurora aurora-two" />
