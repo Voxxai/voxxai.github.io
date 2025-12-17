@@ -20,7 +20,7 @@ export const About: React.FC<AboutProps> = ({ onNavigate }) => {
       </button>
 
       {/* Content */}
-      <div className="neon-panel p-10">
+      <div className="neon-panel p-6 sm:p-10">
         <h1 className="mb-6 text-4xl font-bold text-white">About Voxxai</h1>
 
         <p className="mb-4 text-lg leading-relaxed">

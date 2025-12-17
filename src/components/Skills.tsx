@@ -19,7 +19,7 @@ export const Skills: React.FC<SkillsProps> = ({ onNavigate }) => {
         Back to Home
       </button>
 
-      <header className="neon-panel p-10 mb-8">
+      <header className="neon-panel p-6 sm:p-10 mb-8">
         <div className="flex items-center justify-between gap-4 flex-wrap">
           <div>
             <p className="text-xs uppercase tracking-[0.3em] text-neonCyan">

@@ -107,3 +107,193 @@
   opacity: 0.08;
   animation: scanline 12s linear infinite;
 }
+
+.jinx-rings {
+  position: absolute;
+  inset: -40px;
+  pointer-events: none;
+  overflow: hidden;
+  mix-blend-mode: screen;
+  z-index: 0;
+  mask-image: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.95) 45%,
+    rgba(255, 255, 255, 0) 82%
+  );
+}
+
+.jinx-ring {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 9999px;
+  border: 2px dashed rgba(65, 243, 255, 0.25);
+  filter: drop-shadow(0 0 16px rgba(255, 75, 203, 0.25));
+  animation: jinxSpin 18s linear infinite;
+}
+
+.jinx-ring.ring-one {
+  top: -160px;
+  right: -90px;
+}
+
+.jinx-ring.ring-two {
+  bottom: -180px;
+  left: -120px;
+  border-color: rgba(255, 75, 203, 0.28);
+  animation-duration: 22s;
+  animation-direction: reverse;
+}
+
+.jinx-tracer {
+  position: absolute;
+  height: 4px;
+  width: 260px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, rgba(255, 75, 203, 0), rgba(255, 75, 203, 0.9));
+  box-shadow: 0 0 20px rgba(255, 75, 203, 0.55);
+  animation: jinxDash 8s ease-in-out infinite;
+}
+
+.jinx-tracer.tracer-one {
+  top: 20%;
+  left: -120px;
+}
+
+.jinx-tracer.tracer-two {
+  bottom: 26%;
+  right: -140px;
+  background: linear-gradient(90deg, rgba(65, 243, 255, 0), rgba(65, 243, 255, 0.9));
+  box-shadow: 0 0 20px rgba(65, 243, 255, 0.5);
+  animation-delay: 1.5s;
+}
+
+.jinx-spark {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, #ff4bcb 0%, rgba(255, 75, 203, 0) 70%);
+  animation: jinxPop 6s ease-in-out infinite;
+}
+
+.jinx-spark.spark-one {
+  top: 30%;
+  right: 18%;
+}
+
+.jinx-spark.spark-two {
+  bottom: 24%;
+  left: 16%;
+  background: radial-gradient(circle, #41f3ff 0%, rgba(65, 243, 255, 0) 70%);
+  animation-delay: 0.9s;
+}
+
+@keyframes jinxSpin {
+  from {
+    transform: rotate(0deg) scale(1);
+  }
+  to {
+    transform: rotate(360deg) scale(1.04);
+  }
+}
+
+@keyframes jinxDash {
+  0% {
+    transform: translateX(0) skewX(-12deg);
+    opacity: 0;
+  }
+  18% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(260px) skewX(-12deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(520px) skewX(-12deg);
+    opacity: 0;
+  }
+}
+
+@keyframes jinxPop {
+  0%,
+  100% {
+    transform: scale(0.2) translateY(0);
+    opacity: 0;
+  }
+  40% {
+    transform: scale(1.1) translateY(-6px);
+    opacity: 0.9;
+  }
+  60% {
+    transform: scale(0.95) translateY(2px);
+    opacity: 0.7;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+    background-size: 130% 130%;
+  }
+
+  .glow-blob {
+    width: 240px;
+    height: 240px;
+    filter: blur(90px);
+    opacity: 0.55;
+  }
+
+  .jinx-rings {
+    inset: -60px;
+    opacity: 0.7;
+    mask-image: radial-gradient(
+      circle at center,
+      rgba(255, 255, 255, 0.9) 38%,
+      rgba(255, 255, 255, 0) 75%
+    );
+  }
+
+  .glow-blob.pink {
+    left: -80px;
+    top: -60px;
+  }
+
+  .glow-blob.cyan {
+    right: -90px;
+    bottom: -50px;
+  }
+
+  .jinx-ring {
+    width: 280px;
+    height: 280px;
+    border-width: 1.5px;
+  }
+
+  .jinx-ring.ring-one {
+    top: -120px;
+    right: -120px;
+  }
+
+  .jinx-ring.ring-two {
+    bottom: -140px;
+    left: -120px;
+  }
+
+  .jinx-tracer {
+    width: 180px;
+    height: 3px;
+    opacity: 0.9;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glow-blob,
+  .scanlines,
+  .jinx-ring,
+  .jinx-tracer,
+  .jinx-spark {
+    animation: none;
+  }
+}

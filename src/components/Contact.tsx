@@ -18,7 +18,7 @@ export const Contact: React.FC<ContactProps> = ({ onNavigate }) => {
         Back to Home
       </button>
 
-      <div className="neon-panel p-10 flex flex-col gap-6">
+      <div className="neon-panel p-6 sm:p-10 flex flex-col gap-6">
         <div>
           <p className="text-xs uppercase tracking-[0.3em] text-neonCyan">
             Contact

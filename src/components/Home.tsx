@@ -13,14 +13,22 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   return (
     <main className="relative z-10 mx-auto flex min-h-screen max-w-5xl flex-col gap-10 px-6 py-12 sm:py-16">
       {/* HERO */}
-      <header className="neon-panel p-8 sm:p-10">
-        <div className="flex flex-col gap-6">
-          <div className="flex flex-wrap justify-between gap-4">
-            <div>
+      <header className="neon-panel relative overflow-hidden p-6 sm:p-10">
+        <div className="jinx-rings" aria-hidden>
+          <span className="jinx-ring ring-one" />
+          <span className="jinx-ring ring-two" />
+          <span className="jinx-tracer tracer-one" />
+          <span className="jinx-tracer tracer-two" />
+          <span className="jinx-spark spark-one" />
+          <span className="jinx-spark spark-two" />
+        </div>
+        <div className="relative z-10 flex flex-col gap-6">
+          <div className="flex flex-wrap items-start justify-between gap-6">
+            <div className="max-w-2xl">
               <p className="text-sm uppercase tracking-[0.35em] text-neonCyan">
                 Software Engineer
               </p>
-              <h1 className="text-5xl font-bold leading-tight text-neonPink sm:text-6xl drop-shadow-[0_0_24px_rgba(255,75,203,0.45)]">
+              <h1 className="text-4xl font-bold leading-tight text-neonPink sm:text-5xl drop-shadow-[0_0_24px_rgba(255,75,203,0.45)]">
                 VOXXAI
               </h1>
               <p className="mt-3 max-w-2xl text-lg text-slate-200">
@@ -29,7 +37,7 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               </p>
             </div>
 
-            <div className="flex flex-col items-end gap-3 text-right text-sm text-slate-300">
+            <div className="flex flex-col items-start gap-3 text-sm text-slate-300 sm:items-end sm:text-right">
               <span className="rounded-full border border-neonPink/40 bg-neonPink/10 px-3 py-1 shadow-glowPink">
                 React + TS
               </span>
@@ -56,25 +64,25 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           <div className="flex flex-wrap gap-3">
             <button
               onClick={() => onNavigate("about")}
-              className="rounded-lg border border-white/20 bg-white/5 px-4 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-neonCyan/60"
+              className="w-full rounded-lg border border-white/20 bg-white/5 px-4 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-neonCyan/60 sm:w-auto"
             >
               About Me
             </button>
             <button
               onClick={() => onNavigate("projects")}
-              className="rounded-lg border border-neonCyan/60 bg-neonCyan/10 px-4 py-3 text-sm font-semibold text-white shadow-glowCyan transition hover:-translate-y-0.5 hover:border-neonPink/60 hover:shadow-glowPink"
+              className="w-full rounded-lg border border-neonCyan/60 bg-neonCyan/10 px-4 py-3 text-sm font-semibold text-white shadow-glowCyan transition hover:-translate-y-0.5 hover:border-neonPink/60 hover:shadow-glowPink sm:w-auto"
             >
               View Projects
             </button>
             <button
               onClick={() => onNavigate("skills")}
-              className="rounded-lg border border-white/20 bg-white/5 px-4 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-neonCyan/60"
+              className="w-full rounded-lg border border-white/20 bg-white/5 px-4 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-neonCyan/60 sm:w-auto"
             >
               See Skills
             </button>
             <button
               onClick={() => onNavigate("contact")}
-              className="rounded-lg border border-neonPink/60 bg-neonPink/10 px-4 py-3 text-sm font-semibold text-white shadow-glowPink transition hover:-translate-y-0.5 hover:border-neonCyan/60"
+              className="w-full rounded-lg border border-neonPink/60 bg-neonPink/10 px-4 py-3 text-sm font-semibold text-white shadow-glowPink transition hover:-translate-y-0.5 hover:border-neonCyan/60 sm:w-auto"
             >
               Contact
             </button>
@@ -83,8 +91,8 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       </header>
 
       {/* FEATURED TOOL (Live) */}
-      <section className="neon-panel p-8 sm:p-10">
-        <div className="flex items-start justify-between gap-6">
+      <section className="neon-panel p-6 sm:p-10">
+        <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
           <div className="flex flex-col gap-2">
             <p className="text-xs uppercase tracking-[0.3em] text-neonCyan">
               Featured Tool
@@ -119,14 +127,14 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             </div>
           </div>
 
-          <div className="hidden sm:flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-6 py-8 shadow-innerNeon">
+          <div className="hidden items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-6 py-8 shadow-innerNeon md:flex">
             <span className="text-sm font-semibold text-neonPink">Live</span>
           </div>
         </div>
       </section>
 
       {/* OTHER PROJECTS */}
-      <section className="neon-panel p-8 sm:p-10">
+      <section className="neon-panel p-6 sm:p-10">
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           {previewProjects.map((project) => {
             const isArchived = project.archived;
