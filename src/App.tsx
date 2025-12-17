@@ -13,6 +13,14 @@ const App: React.FC = () => {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-midnight font-sans text-slate-200 selection:bg-neonPink/30 selection:text-white">
+      <div className="global-animations" aria-hidden>
+        <div className="aurora aurora-one" />
+        <div className="aurora aurora-two" />
+        <div className="orbital orbital-one" />
+        <div className="orbital orbital-two" />
+        <div className="background-tracer tracer-a" />
+        <div className="background-tracer tracer-b" />
+      </div>
       <div className="glow-blob pink" aria-hidden />
       <div className="glow-blob cyan" aria-hidden />
       <div className="absolute inset-0 grid-overlay" aria-hidden />
