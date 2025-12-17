@@ -6,16 +6,23 @@ import { Skills } from "./components/Skills";
 import { Contact } from "./components/Contact";
 import { Page } from "./types/pages";
 
+interface NavigatorWithConnection extends Navigator {
+  connection?: {
+    saveData?: boolean;
+  };
+}
+
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<Page>("home");
   const [motionMode, setMotionMode] = useState<"full" | "economy">("full");
 
   React.useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 1024px)");
-    const connection = (navigator as unknown as { connection?: { saveData?: boolean } }).connection;
+    const connection = (navigator as NavigatorWithConnection).connection;
+    const lowCpu = typeof navigator.hardwareConcurrency === "number" && navigator.hardwareConcurrency <= 4;
+    const hasSaveData = connection?.saveData;
+
     const isLowPower = () => {
-      const lowCpu = typeof navigator.hardwareConcurrency === "number" && navigator.hardwareConcurrency <= 4;
-      const hasSaveData = connection?.saveData;
       return mediaQuery.matches || lowCpu || Boolean(hasSaveData);
     };
 
@@ -35,20 +42,20 @@ const App: React.FC = () => {
     <div
       className={`relative min-h-screen overflow-hidden bg-midnight font-sans text-slate-200 selection:bg-neonPink/30 selection:text-white ${motionMode === "economy" ? "motion-economy" : ""}`}
     >
-      <div className="global-animations" aria-hidden>
-        <div className="aurora aurora-one" />
+      <div className="global-animations" aria-hidden="true">
+        <div className="aurora" />
         <div className="aurora aurora-two" />
-        <div className="orbital orbital-one" />
+        <div className="orbital" />
         <div className="orbital orbital-two" />
         <div className="background-tracer tracer-a" />
         <div className="background-tracer tracer-b" />
       </div>
-      <div className="glow-blob pink" aria-hidden />
-      <div className="glow-blob cyan" aria-hidden />
-      <div className="absolute inset-0 grid-overlay" aria-hidden />
+      <div className="glow-blob pink" aria-hidden="true" />
+      <div className="glow-blob cyan" aria-hidden="true" />
+      <div className="absolute inset-0 grid-overlay" aria-hidden="true" />
       <div
         className="absolute inset-0 scanlines pointer-events-none"
-        aria-hidden
+        aria-hidden="true"
       />
 
       {currentPage === "home" && <Home onNavigate={handleNavigate} />}
