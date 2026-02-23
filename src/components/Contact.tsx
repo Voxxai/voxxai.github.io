@@ -1,95 +1,78 @@
 'use client';
 
-import React, { useState, useEffect } from "react";
-import { Page } from "../types/pages";
+import { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { Card } from '@/components/ui/Card';
+import { Send, Mail, User as UserIcon, MessageSquare } from 'lucide-react';
+import { Page } from '../types/pages';
 
 interface ContactProps {
   onNavigate: (page: Page) => void;
 }
 
-interface SubmitStatus {
-  type: "idle" | "loading" | "success" | "error";
-  message?: string;
-}
+const contactSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters'),
+  email: z.string().email('Please enter a valid email address'),
+  message: z.string().min(10, 'Message must be at least 10 characters'),
+});
+
+type ContactFormData = z.infer<typeof contactSchema>;
+
+const COOLDOWN_KEY = 'voxxai_contact_cooldown';
+const COOLDOWN_DURATION = 60000; // 60 seconds
 
 export const Contact: React.FC<ContactProps> = ({ onNavigate }) => {
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-  const [status, setStatus] = useState<SubmitStatus>({ type: "idle" });
-  const [cooldown, setCooldown] = useState(0);
-  const [canSubmit, setCanSubmit] = useState(true);
+  const [cooldownRemaining, setCooldownRemaining] = useState(0);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  // Handle cooldown timer
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+  });
+
   useEffect(() => {
-    if (cooldown > 0) {
-      const timer = setTimeout(() => {
-        setCooldown(cooldown - 1);
-      }, 1000);
-      return () => clearTimeout(timer);
-    }
-  }, [cooldown]);
+    const checkCooldown = () => {
+      const lastSubmit = localStorage.getItem(COOLDOWN_KEY);
+      if (lastSubmit) {
+        const elapsed = Date.now() - parseInt(lastSubmit);
+        const remaining = Math.max(0, COOLDOWN_DURATION - elapsed);
+        setCooldownRemaining(remaining);
+      }
+    };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+    checkCooldown();
+    const interval = setInterval(checkCooldown, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    // Validate form fields
-    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
-      setStatus({
-        type: "error",
-        message: "Please fill in all fields.",
-      });
-      return;
-    }
-
-    // Basic email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      setStatus({
-        type: "error",
-        message: "Please enter a valid email address.",
-      });
-      return;
-    }
-
-    setStatus({ type: "loading" });
-    setCanSubmit(false);
+  const onSubmit = async (data: ContactFormData) => {
+    if (cooldownRemaining > 0) return;
 
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
       });
 
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || "Failed to send message");
+      if (response.ok) {
+        setSubmitStatus('success');
+        localStorage.setItem(COOLDOWN_KEY, Date.now().toString());
+        setCooldownRemaining(COOLDOWN_DURATION);
+        reset();
+        setTimeout(() => setSubmitStatus('idle'), 5000);
+      } else {
+        throw new Error('Failed to send message');
       }
-
-      // Success state
-      setStatus({
-        type: "success",
-        message: "Message sent successfully! 🎉",
-      });
-
-      // Reset form
-      setFormData({ name: "", email: "", message: "" });
-
-      // Start 60-second cooldown
-      setCooldown(60);
-      setTimeout(() => {
-        setCanSubmit(true);
-      }, 60000);
     } catch (error) {
-      setStatus({
-        type: "error",
-        message: error instanceof Error ? error.message : "An error occurred. Please try again.",
-      });
-      setCanSubmit(true);
+      setSubmitStatus('error');
+      setTimeout(() => setSubmitStatus('idle'), 5000);
     }
   };
 
@@ -110,7 +93,7 @@ export const Contact: React.FC<ContactProps> = ({ onNavigate }) => {
             className="group relative"
           >
             <div className="absolute -inset-0.5 bg-gradient-to-br from-neonRed/30 to-transparent rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-300" />
-            <div className="relative bg-white/5 border border-neonRed/30 rounded-xl p-8 backdrop-blur-xl hover:border-neonRed/60 hover:bg-white/10 transition">
+            <Card variant="hoverGlow" className="relative">
               <div className="text-4xl mb-4">✉️</div>
               <h3 className="text-2xl font-bold text-white mb-2">Email</h3>
               <p className="text-slate-300 mb-4">
@@ -119,7 +102,7 @@ export const Contact: React.FC<ContactProps> = ({ onNavigate }) => {
               <span className="inline-flex items-center gap-2 text-neonRed font-semibold group-hover:text-white transition">
                 contact@voxxai.com →
               </span>
-            </div>
+            </Card>
           </a>
 
           {/* GitHub Card */}
@@ -130,7 +113,7 @@ export const Contact: React.FC<ContactProps> = ({ onNavigate }) => {
             className="group relative"
           >
             <div className="absolute -inset-0.5 bg-gradient-to-br from-neonRed/30 to-transparent rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-300" />
-            <div className="relative bg-white/5 border border-neonRed/30 rounded-xl p-8 backdrop-blur-xl hover:border-neonRed/60 hover:bg-white/10 transition">
+            <Card variant="hoverGlow" className="relative">
               <div className="text-4xl mb-4">📦</div>
               <h3 className="text-2xl font-bold text-white mb-2">GitHub</h3>
               <p className="text-slate-300 mb-4">
@@ -139,100 +122,110 @@ export const Contact: React.FC<ContactProps> = ({ onNavigate }) => {
               <span className="inline-flex items-center gap-2 text-neonRed font-semibold group-hover:text-white transition">
                 View Profile →
               </span>
-            </div>
+            </Card>
           </a>
         </div>
 
         {/* Contact Form */}
-        <div className="bg-white/5 border border-white/10 rounded-xl p-8 backdrop-blur-xl mb-12">
+        <Card className="mb-12">
           <h2 className="text-2xl font-bold text-white mb-6">Quick Contact</h2>
-          <form className="space-y-4" onSubmit={handleSubmit}>
-            {status.type === "success" && (
-              <div className="p-4 bg-green-500/20 border border-green-500/50 rounded-lg">
-                <p className="text-green-400 font-semibold">{status.message}</p>
-              </div>
-            )}
-            {status.type === "error" && (
-              <div className="p-4 bg-neonRed/20 border border-neonRed/50 rounded-lg">
-                <p className="text-neonRed font-semibold">{status.message}</p>
-              </div>
-            )}
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            {/* Name Field */}
             <div>
-              <label className="block text-sm text-slate-300 mb-2">Name</label>
+              <label className="flex items-center gap-2 text-sm font-medium mb-2">
+                <UserIcon size={16} />
+                Name
+              </label>
               <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/20 text-white placeholder-slate-500 focus:outline-none focus:border-neonRed/60 transition"
+                {...register('name')}
+                className={`w-full px-4 py-3 bg-white/5 border rounded-lg focus:outline-none focus:border-neonRed transition-colors ${
+                  errors.name ? 'border-red-500' : 'border-white/10'
+                }`}
                 placeholder="Your name"
               />
+              {errors.name && (
+                <p className="mt-1 text-sm text-red-400">{errors.name.message}</p>
+              )}
             </div>
+
+            {/* Email Field */}
             <div>
-              <label className="block text-sm text-slate-300 mb-2">Email</label>
+              <label className="flex items-center gap-2 text-sm font-medium mb-2">
+                <Mail size={16} />
+                Email
+              </label>
               <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/20 text-white placeholder-slate-500 focus:outline-none focus:border-neonRed/60 transition"
+                {...register('email')}
+                className={`w-full px-4 py-3 bg-white/5 border rounded-lg focus:outline-none focus:border-neonRed transition-colors ${
+                  errors.email ? 'border-red-500' : 'border-white/10'
+                }`}
                 placeholder="your@email.com"
               />
+              {errors.email && (
+                <p className="mt-1 text-sm text-red-400">{errors.email.message}</p>
+              )}
             </div>
+
+            {/* Message Field */}
             <div>
-              <label className="block text-sm text-slate-300 mb-2">Message</label>
+              <label className="flex items-center gap-2 text-sm font-medium mb-2">
+                <MessageSquare size={16} />
+                Message
+              </label>
               <textarea
-                name="message"
+                {...register('message')}
                 rows={5}
-                value={formData.message}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/20 text-white placeholder-slate-500 focus:outline-none focus:border-neonRed/60 transition resize-none"
-                placeholder="Tell me about your project..."
+                className={`w-full px-4 py-3 bg-white/5 border rounded-lg focus:outline-none focus:border-neonRed transition-colors resize-none ${
+                  errors.message ? 'border-red-500' : 'border-white/10'
+                }`}
+                placeholder="Your message..."
               />
+              {errors.message && (
+                <p className="mt-1 text-sm text-red-400">{errors.message.message}</p>
+              )}
             </div>
+
+            {/* Submit Button */}
             <button
               type="submit"
-              disabled={status.type === "loading" || !canSubmit}
-              className="w-full px-6 py-3 rounded-lg bg-neonRed text-black font-semibold hover:bg-white transition shadow-glowRed disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              disabled={isSubmitting || cooldownRemaining > 0}
+              className="w-full py-3 bg-neonRed rounded-lg font-semibold flex items-center justify-center gap-2 hover:shadow-[0_0_30px_rgba(255,8,68,0.5)] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-black"
             >
-              {status.type === "loading" && (
+              {isSubmitting ? (
+                'Sending...'
+              ) : cooldownRemaining > 0 ? (
+                `Wait ${Math.ceil(cooldownRemaining / 1000)}s`
+              ) : (
                 <>
-                  <span className="inline-block w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
-                  Sending...
+                  <Send size={18} />
+                  Send Message
                 </>
               )}
-              {status.type !== "loading" && !canSubmit && (
-                <>Retry in {cooldown}s</>
-              )}
-              {status.type !== "loading" && canSubmit && (
-                <>Send Message</>
-              )}
             </button>
-          </form>
-        </div>
 
-        {/* Navigation */}
-        <div className="flex flex-wrap gap-4 justify-center">
+            {/* Status Messages */}
+            {submitStatus === 'success' && (
+              <p className="text-center text-green-400">Message sent successfully! 🎉</p>
+            )}
+            {submitStatus === 'error' && (
+              <p className="text-center text-red-400">Failed to send message. Please try again.</p>
+            )}
+          </form>
+        </Card>
+
+        {/* CTA */}
+        <div className="flex flex-wrap gap-4">
           <button
-            onClick={() => onNavigate("projects")}
-            className="px-6 py-3 rounded-lg border border-white/30 text-white font-semibold hover:border-neonRed hover:text-neonRed transition"
+            onClick={() => onNavigate('projects')}
+            className="px-8 py-3 rounded-lg bg-neonRed text-black font-semibold hover:bg-white transition shadow-glowRed"
           >
-            View Projects
+            View My Work
           </button>
           <button
-            onClick={() => onNavigate("skills")}
-            className="px-6 py-3 rounded-lg border border-white/30 text-white font-semibold hover:border-neonRed hover:text-neonRed transition"
+            onClick={() => onNavigate('about')}
+            className="px-8 py-3 rounded-lg border border-white/30 text-white font-semibold hover:border-neonRed hover:text-neonRed transition"
           >
-            See Skills
-          </button>
-          <button
-            onClick={() => onNavigate("about")}
-            className="px-6 py-3 rounded-lg border border-white/30 text-white font-semibold hover:border-neonRed hover:text-neonRed transition"
-          >
-            About Me
+            Learn About Me
           </button>
         </div>
       </section>
