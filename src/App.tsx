@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Home } from "./components/Home";
 import { About } from "./components/About";
 import { Projects } from "./components/Projects";
@@ -114,6 +115,7 @@ const App: React.FC = () => {
 
       {/* Vercel Analytics */}
       <Analytics />
+      <SpeedInsights />
     </div>
   );
 };
