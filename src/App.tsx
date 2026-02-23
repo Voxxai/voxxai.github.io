@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { Home } from "./components/Home";
 import { About } from "./components/About";
 import { Projects } from "./components/Projects";
@@ -9,7 +10,11 @@ import { Page } from "./types/pages";
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<Page>("home");
 
-  const handleNavigate = (page: Page) => setCurrentPage(page);
+  const handleNavigate = (page: Page) => {
+    setCurrentPage(page);
+    // Smooth scroll to top
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const navItems: { label: string; page: Page }[] = [
     { label: "Home", page: "home" },
@@ -19,17 +24,20 @@ const App: React.FC = () => {
     { label: "Contact", page: "contact" },
   ];
 
+  // Animation variants for page transitions
+  const pageVariants = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: -20 },
+  };
+
+  const pageTransition = {
+    duration: 0.4,
+    type: "tween",
+  } as const;
+
   return (
     <div className="relative min-h-screen overflow-hidden bg-midnight font-sans text-slate-200 selection:bg-neonRed/30 selection:text-white">
-      {/* Background effects */}
-      <div className="glow-blob pink" aria-hidden />
-      <div className="glow-blob cyan" aria-hidden />
-      <div className="absolute inset-0 grid-overlay" aria-hidden />
-      <div
-        className="absolute inset-0 scanlines pointer-events-none"
-        aria-hidden
-      />
-
       {/* Header Navigation */}
       <header className="relative z-20 border-b border-white/10 bg-midnight/80 backdrop-blur-md sticky top-0">
         <div className="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between">
@@ -74,13 +82,28 @@ const App: React.FC = () => {
         </div>
       </header>
 
-      {/* Page Content */}
+      {/* Page Content with Animations */}
       <div className="relative z-10">
-        {currentPage === "home" && <Home onNavigate={handleNavigate} />}
-        {currentPage === "about" && <About onNavigate={handleNavigate} />}
-        {currentPage === "projects" && <Projects onNavigate={handleNavigate} />}
-        {currentPage === "skills" && <Skills onNavigate={handleNavigate} />}
-        {currentPage === "contact" && <Contact onNavigate={handleNavigate} />}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentPage}
+            variants={pageVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            transition={pageTransition}
+          >
+            {currentPage === "home" && <Home onNavigate={handleNavigate} />}
+            {currentPage === "about" && <About onNavigate={handleNavigate} />}
+            {currentPage === "projects" && (
+              <Projects onNavigate={handleNavigate} />
+            )}
+            {currentPage === "skills" && <Skills onNavigate={handleNavigate} />}
+            {currentPage === "contact" && (
+              <Contact onNavigate={handleNavigate} />
+            )}
+          </motion.div>
+        </AnimatePresence>
       </div>
 
       {/* Footer */}
