@@ -1,3 +1,5 @@
+'use client';
+
 import React from "react";
 import { skillsByCategory } from "../data/skills";
 import { Page } from "../types/pages";

@@ -1,29 +1,29 @@
-import React, { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { Analytics } from "@vercel/analytics/react";
-// import { SpeedInsights } from "@vercel/speed-insights/react";
-import { Home } from "./components/Home";
-import { About } from "./components/About";
-import { Projects } from "./components/Projects";
-import { Skills } from "./components/Skills";
-import { Contact } from "./components/Contact";
-import { Page } from "./types/pages";
+'use client';
 
-const App: React.FC = () => {
-  const [currentPage, setCurrentPage] = useState<Page>("home");
+import React, { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Home } from '../components/Home';
+import { About } from '../components/About';
+import { Projects } from '../components/Projects';
+import { Skills } from '../components/Skills';
+import { Contact } from '../components/Contact';
+import { Page } from '../types/pages';
+
+export default function AppPage() {
+  const [currentPage, setCurrentPage] = useState<Page>('home');
 
   const handleNavigate = (page: Page) => {
     setCurrentPage(page);
     // Smooth scroll to top
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const navItems: { label: string; page: Page }[] = [
-    { label: "Home", page: "home" },
-    { label: "About", page: "about" },
-    { label: "Projects", page: "projects" },
-    { label: "Skills", page: "skills" },
-    { label: "Contact", page: "contact" },
+    { label: 'Home', page: 'home' },
+    { label: 'About', page: 'about' },
+    { label: 'Projects', page: 'projects' },
+    { label: 'Skills', page: 'skills' },
+    { label: 'Contact', page: 'contact' },
   ];
 
   // Animation variants for page transitions
@@ -35,7 +35,7 @@ const App: React.FC = () => {
 
   const pageTransition = {
     duration: 0.4,
-    type: "tween",
+    type: 'tween',
   } as const;
 
   return (
@@ -44,7 +44,7 @@ const App: React.FC = () => {
       <header className="relative z-20 border-b border-white/10 bg-midnight/80 backdrop-blur-md sticky top-0">
         <div className="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between">
           <button
-            onClick={() => handleNavigate("home")}
+            onClick={() => handleNavigate('home')}
             className="text-2xl font-bold text-neonRed hover:text-white transition"
           >
             VOXXAI
@@ -57,8 +57,8 @@ const App: React.FC = () => {
                 onClick={() => handleNavigate(item.page)}
                 className={`text-sm font-medium transition ${
                   currentPage === item.page
-                    ? "text-neonRed border-b-2 border-neonRed pb-1"
-                    : "text-slate-300 hover:text-white"
+                    ? 'text-neonRed border-b-2 border-neonRed pb-1'
+                    : 'text-slate-300 hover:text-white'
                 }`}
               >
                 {item.label}
@@ -73,8 +73,8 @@ const App: React.FC = () => {
                 onClick={() => handleNavigate(item.page)}
                 className={`text-xs px-3 py-1 rounded transition ${
                   currentPage === item.page
-                    ? "bg-neonRed text-black font-semibold"
-                    : "border border-white/20 text-slate-300 hover:border-neonRed"
+                    ? 'bg-neonRed text-black font-semibold'
+                    : 'border border-white/20 text-slate-300 hover:border-neonRed'
                 }`}
               >
                 {item.label.slice(0, 3)}
@@ -95,29 +95,18 @@ const App: React.FC = () => {
             exit="exit"
             transition={pageTransition}
           >
-            {currentPage === "home" && <Home onNavigate={handleNavigate} />}
-            {currentPage === "about" && <About onNavigate={handleNavigate} />}
-            {currentPage === "projects" && (
+            {currentPage === 'home' && <Home onNavigate={handleNavigate} />}
+            {currentPage === 'about' && <About onNavigate={handleNavigate} />}
+            {currentPage === 'projects' && (
               <Projects onNavigate={handleNavigate} />
             )}
-            {currentPage === "skills" && <Skills onNavigate={handleNavigate} />}
-            {currentPage === "contact" && (
+            {currentPage === 'skills' && <Skills onNavigate={handleNavigate} />}
+            {currentPage === 'contact' && (
               <Contact onNavigate={handleNavigate} />
             )}
           </motion.div>
         </AnimatePresence>
       </div>
-
-      {/* Footer */}
-      <footer className="relative z-10 mx-auto flex max-w-6xl justify-center px-6 pb-8 pt-16 text-xs text-slate-500 border-t border-white/10 mt-20">
-        <span>© {new Date().getFullYear()} Voxxai · Modern Web Engineer</span>
-      </footer>
-
-      {/* Vercel Analytics */}
-      <Analytics />
-      {/* <SpeedInsights /> */}
     </div>
   );
-};
-
-export default App;
+}
