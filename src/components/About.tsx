@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Page } from "../types/pages";
+import { Card } from "@/components/ui/Card";
 
 interface AboutProps {
   onNavigate: (page: Page) => void;
@@ -20,7 +21,7 @@ export const About: React.FC<AboutProps> = ({ onNavigate }) => {
 
         <div className="space-y-12">
           {/* Background */}
-          <div className="bg-white/5 border border-white/10 rounded-xl p-8 backdrop-blur-xl">
+          <Card>
             <h2 className="text-2xl font-bold text-white mb-4">Background</h2>
             <p className="text-slate-300 leading-relaxed mb-4">
               I specialize in modern web development with a focus on React and TypeScript. My expertise spans frontend architecture, API design, and building scalable systems. I've worked on everything from interactive tools to full-stack applications.
@@ -28,10 +29,10 @@ export const About: React.FC<AboutProps> = ({ onNavigate }) => {
             <p className="text-slate-300 leading-relaxed">
               Beyond code, I'm deeply into gaming, anime, and tech culture—influences that shape my design philosophy toward sleek, bold, and user-centric interfaces.
             </p>
-          </div>
+          </Card>
 
           {/* Philosophy */}
-          <div className="bg-white/5 border border-white/10 rounded-xl p-8 backdrop-blur-xl">
+          <Card>
             <h2 className="text-2xl font-bold text-white mb-4">My Philosophy</h2>
             <ul className="space-y-3 text-slate-300">
               <li className="flex items-start gap-3">
@@ -51,7 +52,7 @@ export const About: React.FC<AboutProps> = ({ onNavigate }) => {
                 <span><strong className="text-white">Continuous Learning:</strong> Staying updated with modern tooling and best practices</span>
               </li>
             </ul>
-          </div>
+          </Card>
 
           {/* Current Focus */}
           <div className="bg-gradient-to-br from-neonRed/10 to-neonBlack/10 border border-neonRed/30 rounded-xl p-8">

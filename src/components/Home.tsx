@@ -63,10 +63,10 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               <Image
                 src="/Soul.jpg"
                 alt="Soul - Personal branding"
-                width={320}
-                height={320}
+                fill
                 priority
-                className="w-full h-full object-cover border border-neonRed/30 rounded-3xl"
+                sizes="(max-width: 1024px) 100vw, 320px"
+                className="object-cover border border-neonRed/30 rounded-3xl"
               />
               <div className="absolute inset-0 border border-neonRed/50 rounded-3xl" />
             </div>

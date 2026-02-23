@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { Home as HomeIcon, User, Briefcase, Code, Mail, Menu, X } from 'lucide-react';
 import { Home } from '../components/Home';
 import { About } from '../components/About';
 import { Projects } from '../components/Projects';
@@ -11,20 +12,42 @@ import { Page } from '../types/pages';
 
 export default function AppPage() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const navItems: Array<{ page: Page; label: string; icon: typeof HomeIcon }> = [
+    { page: 'home', label: 'Home', icon: HomeIcon },
+    { page: 'about', label: 'About', icon: User },
+    { page: 'projects', label: 'Projects', icon: Briefcase },
+    { page: 'skills', label: 'Skills', icon: Code },
+    { page: 'contact', label: 'Contact', icon: Mail },
+  ];
 
   const handleNavigate = (page: Page) => {
+    if (page === currentPage || isAnimating) return;
+    setIsAnimating(true);
     setCurrentPage(page);
-    // Smooth scroll to top
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setIsMobileMenuOpen(false); // Auto-close mobile menu
   };
 
-  const navItems: { label: string; page: Page }[] = [
-    { label: 'Home', page: 'home' },
-    { label: 'About', page: 'about' },
-    { label: 'Projects', page: 'projects' },
-    { label: 'Skills', page: 'skills' },
-    { label: 'Contact', page: 'contact' },
-  ];
+  // Scroll to top when page changes, after animation
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const timer = setTimeout(() => setIsAnimating(false), 400);
+    return () => clearTimeout(timer);
+  }, [currentPage]);
+
+  // Scroll lock when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
 
   // Animation variants for page transitions
   const pageVariants = {
@@ -41,7 +64,7 @@ export default function AppPage() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-midnight font-sans text-slate-200 selection:bg-neonRed/30 selection:text-white">
       {/* Header Navigation */}
-      <header className="relative z-20 border-b border-white/10 bg-midnight/80 backdrop-blur-md sticky top-0">
+      <header className="sticky top-0 z-50 border-b border-white/20 bg-midnight shadow-lg">
         <div className="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between">
           <button
             onClick={() => handleNavigate('home')}
@@ -50,39 +73,67 @@ export default function AppPage() {
             VOXXAI
           </button>
 
-          <nav className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => (
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-2">
+            {navItems.map(({ page, label, icon: Icon }) => (
               <button
-                key={item.page}
-                onClick={() => handleNavigate(item.page)}
-                className={`text-sm font-medium transition ${
-                  currentPage === item.page
+                key={page}
+                onClick={() => handleNavigate(page)}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                  currentPage === page
                     ? 'text-neonRed border-b-2 border-neonRed pb-1'
                     : 'text-slate-300 hover:text-white'
                 }`}
               >
-                {item.label}
+                <Icon size={16} />
+                {label}
               </button>
             ))}
           </nav>
 
-          <div className="md:hidden flex gap-2">
-            {navItems.slice(1).map((item) => (
-              <button
-                key={item.page}
-                onClick={() => handleNavigate(item.page)}
-                className={`text-xs px-3 py-1 rounded transition ${
-                  currentPage === item.page
-                    ? 'bg-neonRed text-black font-semibold'
-                    : 'border border-white/20 text-slate-300 hover:border-neonRed'
-                }`}
-              >
-                {item.label.slice(0, 3)}
-              </button>
-            ))}
-          </div>
+          {/* Mobile Hamburger Button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden p-2 rounded-lg text-white hover:bg-white/10 transition-colors z-50 relative"
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
         </div>
       </header>
+
+      {/* Full-Screen Mobile Navigation Overlay */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 bg-midnight/95 backdrop-blur-sm z-40 flex items-center justify-center md:hidden"
+          >
+            <nav className="flex flex-col items-center gap-8">
+              {navItems.map(({ page, label, icon: Icon }, index) => (
+                <motion.button
+                  key={page}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  onClick={() => handleNavigate(page)}
+                  className={`flex items-center gap-4 text-4xl font-bold transition-all duration-300 ${
+                    currentPage === page
+                      ? 'text-neonRed'
+                      : 'text-slate-300 hover:text-white'
+                  }`}
+                >
+                  <Icon size={40} />
+                  {label}
+                </motion.button>
+              ))}
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Page Content with Animations */}
       <div className="relative z-10">
