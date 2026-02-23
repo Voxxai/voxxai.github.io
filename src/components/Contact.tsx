@@ -1,15 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Page } from "../types/pages";
 
 interface ContactProps {
   onNavigate: (page: Page) => void;
 }
 
+interface SubmitStatus {
+  type: "idle" | "loading" | "success" | "error";
+  message?: string;
+}
+
 export const Contact: React.FC<ContactProps> = ({ onNavigate }) => {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-  const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [status, setStatus] = useState<SubmitStatus>({ type: "idle" });
+  const [cooldown, setCooldown] = useState(0);
+  const [canSubmit, setCanSubmit] = useState(true);
+
+  // Handle cooldown timer
+  useEffect(() => {
+    if (cooldown > 0) {
+      const timer = setTimeout(() => {
+        setCooldown(cooldown - 1);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [cooldown]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -18,67 +33,61 @@ export const Contact: React.FC<ContactProps> = ({ onNavigate }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setStatus("idle");
-    setErrorMessage("");
 
-    const webhookUrl = process.env.REACT_APP_DISCORD_WEBHOOK_URL;
-
-    if (!webhookUrl) {
-      setStatus("error");
-      setErrorMessage("Webhook not configured. Please try email instead.");
-      setLoading(false);
+    // Validate form fields
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+      setStatus({
+        type: "error",
+        message: "Please fill in all fields.",
+      });
       return;
     }
 
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      setStatus({
+        type: "error",
+        message: "Please enter a valid email address.",
+      });
+      return;
+    }
+
+    setStatus({ type: "loading" });
+    setCanSubmit(false);
+
     try {
-      const response = await fetch(webhookUrl, {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          content: "@everyone",
-          embeds: [
-            {
-              title: "🚀 New Contact Form Submission",
-              color: 16718874,
-              fields: [
-                {
-                  name: "👤 Name",
-                  value: formData.name || "Not provided",
-                  inline: true,
-                },
-                {
-                  name: "📧 Email",
-                  value: formData.email || "Not provided",
-                  inline: true,
-                },
-                {
-                  name: "💬 Message",
-                  value: formData.message || "No message",
-                  inline: false,
-                },
-              ],
-              timestamp: new Date().toISOString(),
-              footer: {
-                text: "voxxai.com",
-              },
-            },
-          ],
-        }),
+        body: JSON.stringify(formData),
       });
 
       if (!response.ok) {
-        throw new Error("Failed to send message");
+        const error = await response.json();
+        throw new Error(error.error || "Failed to send message");
       }
 
-      setStatus("success");
+      // Success state
+      setStatus({
+        type: "success",
+        message: "Message sent successfully! 🎉",
+      });
+
+      // Reset form
       setFormData({ name: "", email: "", message: "" });
-      setTimeout(() => setStatus("idle"), 5000);
+
+      // Start 60-second cooldown
+      setCooldown(60);
+      setTimeout(() => {
+        setCanSubmit(true);
+      }, 60000);
     } catch (error) {
-      setStatus("error");
-      setErrorMessage(error instanceof Error ? error.message : "Failed to send message");
-    } finally {
-      setLoading(false);
+      setStatus({
+        type: "error",
+        message: error instanceof Error ? error.message : "An error occurred. Please try again.",
+      });
+      setCanSubmit(true);
     }
   };
 
@@ -136,14 +145,14 @@ export const Contact: React.FC<ContactProps> = ({ onNavigate }) => {
         <div className="bg-white/5 border border-white/10 rounded-xl p-8 backdrop-blur-xl mb-12">
           <h2 className="text-2xl font-bold text-white mb-6">Quick Contact</h2>
           <form className="space-y-4" onSubmit={handleSubmit}>
-            {status === "success" && (
+            {status.type === "success" && (
               <div className="p-4 bg-green-500/20 border border-green-500/50 rounded-lg">
-                <p className="text-green-400 font-semibold">Message sent! I'll be in touch soon.</p>
+                <p className="text-green-400 font-semibold">{status.message}</p>
               </div>
             )}
-            {status === "error" && (
+            {status.type === "error" && (
               <div className="p-4 bg-neonRed/20 border border-neonRed/50 rounded-lg">
-                <p className="text-neonRed font-semibold">{errorMessage}</p>
+                <p className="text-neonRed font-semibold">{status.message}</p>
               </div>
             )}
             <div>
@@ -184,10 +193,21 @@ export const Contact: React.FC<ContactProps> = ({ onNavigate }) => {
             </div>
             <button
               type="submit"
-              disabled={loading}
-              className="w-full px-6 py-3 rounded-lg bg-neonRed text-black font-semibold hover:bg-white transition shadow-glowRed disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={status.type === "loading" || !canSubmit}
+              className="w-full px-6 py-3 rounded-lg bg-neonRed text-black font-semibold hover:bg-white transition shadow-glowRed disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
-              {loading ? "Sending..." : "Send Message"}
+              {status.type === "loading" && (
+                <>
+                  <span className="inline-block w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
+                  Sending...
+                </>
+              )}
+              {status.type !== "loading" && !canSubmit && (
+                <>Retry in {cooldown}s</>
+              )}
+              {status.type !== "loading" && canSubmit && (
+                <>Send Message</>
+              )}
             </button>
           </form>
         </div>
