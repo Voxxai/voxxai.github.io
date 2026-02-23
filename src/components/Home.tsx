@@ -1,4 +1,6 @@
-import React from "react";
+'use client';
+
+import Image from 'next/image';
 import { projects } from "../data/projects";
 import { summarySkills } from "../data/skills";
 import { Page } from "../types/pages";
@@ -58,9 +60,12 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
 
           <div className="hidden lg:flex items-center justify-center">
             <div className="relative w-80 h-80 rounded-3xl overflow-hidden">
-              <img
+              <Image
                 src="/Soul.jpg"
                 alt="Soul - Personal branding"
+                width={320}
+                height={320}
+                priority
                 className="w-full h-full object-cover border border-neonRed/30 rounded-3xl"
               />
               <div className="absolute inset-0 border border-neonRed/50 rounded-3xl" />
