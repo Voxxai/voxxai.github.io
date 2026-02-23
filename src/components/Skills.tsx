@@ -8,74 +8,73 @@ interface SkillsProps {
 
 export const Skills: React.FC<SkillsProps> = ({ onNavigate }) => {
   return (
-    <main className="relative z-10 mx-auto min-h-screen max-w-5xl px-6 py-12 text-slate-200">
-      <button
-        onClick={() => onNavigate("home")}
-        className="mb-8 flex items-center gap-2 text-neonCyan hover:text-neonPink transition font-mono text-sm group"
-      >
-        <span className="group-hover:-translate-x-1 transition-transform">
-          &lt;
-        </span>{" "}
-        Back to Home
-      </button>
+    <main className="relative z-10">
+      <section className="mx-auto max-w-6xl px-6 py-20">
+        <div className="mb-16">
+          <h1 className="text-5xl font-bold text-white mb-4">Skills & Expertise</h1>
+          <p className="text-xl text-slate-300">
+            Technologies and methodologies I work with daily to build modern web applications.
+          </p>
+        </div>
 
-      <header className="neon-panel p-10 mb-8">
-        <div className="flex items-center justify-between gap-4 flex-wrap">
-          <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-neonCyan">
-              Skills
-            </p>
-            <h1 className="text-4xl font-bold text-white">Capabilities</h1>
-            <p className="mt-2 max-w-2xl text-slate-300">
-              Stacks, patterns, and delivery skills used across projects.
-            </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+          {skillsByCategory.map((group, index) => (
+            <div
+              key={group.category}
+              className="bg-white/5 border border-white/10 rounded-xl p-8 backdrop-blur-xl hover:border-neonRed/30 hover:bg-white/[0.07] transition"
+            >
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-8 h-8 rounded-lg bg-neonRed/20 flex items-center justify-center">
+                  <span className="text-neonRed font-bold text-sm">{index + 1}</span>
+                </div>
+                <h2 className="text-2xl font-bold text-white">{group.category}</h2>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                {group.items.map((item) => (
+                  <span
+                    key={item}
+                    className="px-4 py-2 rounded-full bg-neonRed/10 border border-neonRed/30 text-sm text-slate-200 hover:border-neonRed/60 hover:bg-neonRed/20 transition cursor-default"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Highlights */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          <div className="bg-gradient-to-br from-neonRed/20 to-neonRed/5 border border-neonRed/30 rounded-xl p-8">
+            <div className="text-3xl font-bold text-neonRed mb-2">10+</div>
+            <p className="text-slate-300">Years of Web Development</p>
           </div>
+          <div className="bg-gradient-to-br from-neonRed/20 to-neonRed/5 border border-neonRed/30 rounded-xl p-8">
+            <div className="text-3xl font-bold text-neonRed mb-2">5+</div>
+            <p className="text-slate-300">Production Applications</p>
+          </div>
+          <div className="bg-gradient-to-br from-neonRed/20 to-neonRed/5 border border-neonRed/30 rounded-xl p-8">
+            <div className="text-3xl font-bold text-neonRed mb-2">100%</div>
+            <p className="text-slate-300">Test Coverage Committed</p>
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div className="bg-white/5 border border-white/10 rounded-xl p-12 text-center">
+          <h2 className="text-3xl font-bold text-white mb-4">
+            Looking for someone with these skills?
+          </h2>
+          <p className="text-lg text-slate-300 mb-8 max-w-2xl mx-auto">
+            Let's discuss how I can contribute to your project and bring value to your team.
+          </p>
           <button
-            onClick={() => onNavigate("projects")}
-            className="rounded-lg border border-neonCyan/60 bg-neonCyan/10 px-4 py-2 text-sm font-semibold text-white shadow-glowCyan transition hover:-translate-y-0.5 hover:border-neonPink/60"
+            onClick={() => onNavigate("contact")}
+            className="px-8 py-3 rounded-lg bg-neonRed text-black font-semibold hover:bg-white transition shadow-glowRed"
           >
-            View projects
+            Get in Touch
           </button>
         </div>
-      </header>
-
-      <section className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        {skillsByCategory.map((group) => (
-          <article
-            key={group.category}
-            className="neon-panel p-6 border border-white/10 bg-white/5"
-          >
-            <h2 className="text-xl font-semibold text-white drop-shadow-[0_0_12px_rgba(65,243,255,0.25)]">
-              {group.category}
-            </h2>
-            <div className="mt-4 flex flex-wrap gap-2 text-sm text-slate-100">
-              {group.items.map((item) => (
-                <span
-                  key={item}
-                  className="rounded-full border border-white/15 bg-white/10 px-3 py-1"
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
-          </article>
-        ))}
       </section>
-
-      <div className="mt-10 flex flex-wrap gap-3">
-        <button
-          onClick={() => onNavigate("contact")}
-          className="rounded-lg border border-neonPink/60 bg-neonPink/10 px-4 py-2 text-sm font-semibold text-white shadow-glowPink transition hover:-translate-y-0.5 hover:border-neonCyan/60"
-        >
-          Contact
-        </button>
-        <button
-          onClick={() => onNavigate("about")}
-          className="rounded-lg border border-white/20 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-neonCyan/60"
-        >
-          About me
-        </button>
-      </div>
     </main>
   );
 };

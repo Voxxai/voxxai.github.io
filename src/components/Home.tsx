@@ -8,180 +8,172 @@ interface HomeProps {
 }
 
 export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
-  const previewProjects = projects.slice(0, 4);
+  const featuredProject = projects[0];
+  const recentProjects = projects.slice(0, 3);
 
   return (
-    <main className="relative z-10 mx-auto flex min-h-screen max-w-5xl flex-col gap-10 px-6 py-12 sm:py-16">
-      {/* HERO */}
-      <header className="neon-panel p-8 sm:p-10">
-        <div className="flex flex-col gap-6">
-          <div className="flex flex-wrap justify-between gap-4">
-            <div>
-              <p className="text-sm uppercase tracking-[0.35em] text-neonCyan">
-                Software Engineer
+    <main className="relative z-10">
+      {/* Hero Section */}
+      <section className="mx-auto max-w-6xl px-6 py-20 sm:py-32">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="space-y-8">
+            <div className="space-y-4">
+              <p className="text-sm uppercase tracking-[0.3em] text-neonRed font-semibold">
+                Welcome to my portfolio
               </p>
-              <h1 className="text-5xl font-bold leading-tight text-neonPink sm:text-6xl drop-shadow-[0_0_24px_rgba(255,75,203,0.45)]">
-                VOXXAI
+              <h1 className="text-6xl sm:text-7xl font-bold leading-tight text-white drop-shadow-[0_0_30px_rgba(255,26,26,0.3)]">
+                Voxxai
               </h1>
-              <p className="mt-3 max-w-2xl text-lg text-slate-200">
-                I build expressive, resilient products with React, TypeScript,
-                and modern tooling. Cyberpunk-infused, shipping-grade code.
+              <p className="text-xl text-slate-300 leading-relaxed">
+                Full-stack engineer crafting modern web experiences with React, TypeScript, and elegant design. I build products that are both performant and delightful.
               </p>
             </div>
 
-            <div className="flex flex-col items-end gap-3 text-right text-sm text-slate-300">
-              <span className="rounded-full border border-neonPink/40 bg-neonPink/10 px-3 py-1 shadow-glowPink">
-                React + TS
-              </span>
-              <span className="rounded-full border border-neonCyan/40 bg-neonCyan/10 px-3 py-1 shadow-glowCyan">
-                UI Systems
-              </span>
-              <span className="rounded-full border border-white/10 px-3 py-1">
-                Shipping fast
-              </span>
+            <div className="flex flex-wrap gap-2">
+              {summarySkills.map((skill) => (
+                <span
+                  key={skill}
+                  className="px-4 py-2 rounded-full border border-neonRed/30 bg-neonRed/5 text-sm text-slate-200 hover:border-neonRed/60 transition"
+                >
+                  {skill}
+                </span>
+              ))}
             </div>
-          </div>
 
-          <div className="flex flex-wrap items-center gap-3 text-sm text-slate-300">
-            {summarySkills.map((skill) => (
-              <span
-                key={skill}
-                className="rounded-full border border-white/15 bg-white/5 px-3 py-1"
+            <div className="flex flex-wrap gap-4 pt-4">
+              <button
+                onClick={() => onNavigate("projects")}
+                className="px-8 py-3 rounded-lg bg-neonRed text-black font-semibold hover:bg-white transition shadow-glowRed"
               >
-                {skill}
-              </span>
-            ))}
-          </div>
-
-          <div className="flex flex-wrap gap-3">
-            <button
-              onClick={() => onNavigate("about")}
-              className="rounded-lg border border-white/20 bg-white/5 px-4 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-neonCyan/60"
-            >
-              About Me
-            </button>
-            <button
-              onClick={() => onNavigate("projects")}
-              className="rounded-lg border border-neonCyan/60 bg-neonCyan/10 px-4 py-3 text-sm font-semibold text-white shadow-glowCyan transition hover:-translate-y-0.5 hover:border-neonPink/60 hover:shadow-glowPink"
-            >
-              View Projects
-            </button>
-            <button
-              onClick={() => onNavigate("skills")}
-              className="rounded-lg border border-white/20 bg-white/5 px-4 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-neonCyan/60"
-            >
-              See Skills
-            </button>
-            <button
-              onClick={() => onNavigate("contact")}
-              className="rounded-lg border border-neonPink/60 bg-neonPink/10 px-4 py-3 text-sm font-semibold text-white shadow-glowPink transition hover:-translate-y-0.5 hover:border-neonCyan/60"
-            >
-              Contact
-            </button>
-          </div>
-        </div>
-      </header>
-
-      {/* FEATURED TOOL (Live) */}
-      <section className="neon-panel p-8 sm:p-10">
-        <div className="flex items-start justify-between gap-6">
-          <div className="flex flex-col gap-2">
-            <p className="text-xs uppercase tracking-[0.3em] text-neonCyan">
-              Featured Tool
-            </p>
-            <h2 className="text-3xl font-semibold text-white">
-              Salary Calculator
-            </h2>
-            <p className="max-w-xl text-base text-slate-200">
-              React + TypeScript tool to calculate shifts and allowances based
-              on Dutch CAO rules.
-            </p>
-
-            <div className="flex flex-wrap gap-3 pt-2 text-sm text-slate-200">
-              <span className="rounded-full border border-neonPink/60 bg-neonPink/15 px-3 py-1 shadow-glowPink">
-                React
-              </span>
-              <span className="rounded-full border border-neonCyan/60 bg-neonCyan/15 px-3 py-1 shadow-glowCyan">
-                TypeScript
-              </span>
-              <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1">
-                CAO logic
-              </span>
-            </div>
-
-            <div className="pt-4">
-              <a
-                href="/salaryCalculator"
-                className="inline-flex items-center gap-2 rounded-lg border border-neonCyan/60 bg-gradient-to-r from-neonCyan/15 to-neonPink/15 px-4 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-neonPink/70 hover:shadow-glowPink"
+                View Work
+              </button>
+              <button
+                onClick={() => onNavigate("about")}
+                className="px-8 py-3 rounded-lg border border-white/30 text-white font-semibold hover:border-neonRed hover:text-neonRed transition"
               >
-                Open Calculator &gt;
-              </a>
+                Learn More
+              </button>
             </div>
           </div>
 
-          <div className="hidden sm:flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-6 py-8 shadow-innerNeon">
-            <span className="text-sm font-semibold text-neonPink">Live</span>
+          <div className="hidden lg:flex items-center justify-center">
+            <div className="relative w-80 h-80 rounded-3xl overflow-hidden">
+              <img
+                src="/Soul.jpg"
+                alt="Soul - Personal branding"
+                className="w-full h-full object-cover border border-neonRed/30 rounded-3xl"
+              />
+              <div className="absolute inset-0 border border-neonRed/50 rounded-3xl" />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* OTHER PROJECTS */}
-      <section className="neon-panel p-8 sm:p-10">
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-          {previewProjects.map((project) => {
-            const isArchived = project.archived;
+      {/* Featured Project */}
+      <section className="mx-auto max-w-6xl px-6 py-16">
+        <div className="bg-gradient-to-br from-white/5 to-white/[0.02] border border-neonRed/20 rounded-2xl p-8 md:p-12 backdrop-blur-xl overflow-hidden relative">
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-neonRed/10 rounded-full blur-3xl" />
+          <div className="relative z-10">
+            <p className="text-xs uppercase tracking-[0.3em] text-neonRed font-semibold mb-3">
+              Featured Project
+            </p>
+            <h2 className="text-4xl font-bold text-white mb-4">
+              {featuredProject?.name}
+            </h2>
+            <p className="text-lg text-slate-300 max-w-2xl mb-6 leading-relaxed">
+              {featuredProject?.description}
+            </p>
+            <div className="flex flex-wrap gap-3 mb-8">
+              <span className="px-4 py-2 rounded-full bg-neonRed/10 border border-neonRed/40 text-sm text-slate-200">
+                {featuredProject?.language}
+              </span>
+              <span className="px-4 py-2 rounded-full bg-white/5 border border-white/20 text-sm text-slate-300">
+                Active Project
+              </span>
+            </div>
+            <a
+              href={featuredProject?.html_url}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-neonRed/10 border border-neonRed/60 text-neonRed font-semibold hover:bg-neonRed hover:text-black transition"
+            >
+              Explore on GitHub →
+            </a>
+          </div>
+        </div>
+      </section>
 
-            return (
-              <div
-                key={project.name}
-                className={`group relative overflow-hidden rounded-2xl border bg-white/5 p-6 backdrop-blur-lg transition
-                  ${
-                    isArchived
-                      ? "border-white/10 opacity-80"
-                      : "border-neonCyan/40 hover:-translate-y-1 hover:border-neonPink/60 hover:shadow-glowPink"
-                  }`}
-              >
-                <div className="relative flex flex-col gap-3">
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <h4 className="text-xl font-semibold text-white">
-                        {project.name}
-                      </h4>
-                      <p className="text-sm text-slate-200">
-                        {project.description}
-                      </p>
-                    </div>
+      {/* Recent Projects Grid */}
+      <section className="mx-auto max-w-6xl px-6 py-16">
+        <div className="mb-12">
+          <h2 className="text-3xl font-bold text-white mb-2">Recent Work</h2>
+          <p className="text-slate-400">A selection of projects spanning frontend, backend, and game development.</p>
+        </div>
 
-                    <span
-                      className={`rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide
-                        ${
-                          isArchived
-                            ? "border border-white/25 bg-white/10 text-slate-300"
-                            : "border border-neonCyan/50 bg-neonCyan/10 text-neonCyan"
-                        }`}
-                    >
-                      {isArchived ? "Archived" : "Active"}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {recentProjects.map((project) => (
+            <a
+              key={project.name}
+              href={project.html_url}
+              target="_blank"
+              rel="noreferrer"
+              className="group relative"
+            >
+              <div className="absolute -inset-0.5 bg-gradient-to-br from-neonRed/20 to-transparent rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-300" />
+              <div className="relative bg-white/5 border border-white/10 rounded-xl p-6 backdrop-blur-xl hover:border-neonRed/40 transition h-full flex flex-col justify-between">
+                <div>
+                  <div className="flex items-start justify-between mb-4">
+                    <h3 className="text-lg font-semibold text-white group-hover:text-neonRed transition">
+                      {project.name}
+                    </h3>
+                    <span className={`text-xs px-2 py-1 rounded font-semibold ${
+                      project.archived
+                        ? "bg-white/10 text-slate-400"
+                        : "bg-neonRed/10 text-neonRed border border-neonRed/30"
+                    }`}>
+                      {project.archived ? "Archive" : "Active"}
                     </span>
                   </div>
-
-                  <div className="flex flex-wrap gap-2">
-                    <span className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs">
-                      {project.language}
-                    </span>
-                  </div>
-
-                  <a
-                    href={project.html_url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="pt-2 text-sm font-semibold text-neonCyan transition hover:text-neonPink"
-                  >
-                    View on GitHub &gt;
-                  </a>
+                  <p className="text-sm text-slate-400 leading-relaxed mb-4">
+                    {project.description}
+                  </p>
+                </div>
+                <div className="flex items-center gap-2 pt-4 border-t border-white/10">
+                  <span className="text-xs bg-white/10 px-2 py-1 rounded text-slate-300">
+                    {project.language}
+                  </span>
+                  <span className="text-xs text-neonRed font-semibold ml-auto">View →</span>
                 </div>
               </div>
-            );
-          })}
+            </a>
+          ))}
+        </div>
+
+        <div className="mt-12 text-center">
+          <button
+            onClick={() => onNavigate("projects")}
+            className="px-8 py-3 rounded-lg border border-neonRed/60 text-neonRed font-semibold hover:bg-neonRed/10 transition"
+          >
+            See All Projects
+          </button>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="mx-auto max-w-6xl px-6 py-20">
+        <div className="bg-gradient-to-r from-neonRed/10 to-neonBlack/10 border border-neonRed/30 rounded-2xl p-12 text-center">
+          <h2 className="text-4xl font-bold text-white mb-4">
+            Ready to collaborate?
+          </h2>
+          <p className="text-lg text-slate-300 mb-8 max-w-2xl mx-auto">
+            I'm always interested in discussing new projects and innovative ideas.
+          </p>
+          <button
+            onClick={() => onNavigate("contact")}
+            className="px-8 py-3 rounded-lg bg-neonRed text-black font-semibold hover:bg-white transition shadow-glowRed"
+          >
+            Get in Touch
+          </button>
         </div>
       </section>
     </main>

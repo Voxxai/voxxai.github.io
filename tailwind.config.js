@@ -4,16 +4,16 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        neonPink: "#ff4bcb",
-        neonCyan: "#41f3ff",
-        midnight: "#0a0d13",
-        ink: "#0f1525",
+        neonRed: "#ff1a1a",
+        neonBlack: "#1a1a1a",
+        midnight: "#0a0a0a",
+        ink: "#0f0f0f",
       },
       boxShadow: {
-        glowPink: "0 0 25px rgba(255, 75, 203, 0.35)",
-        glowCyan: "0 0 25px rgba(65, 243, 255, 0.35)",
+        glowRed: "0 0 25px rgba(255, 26, 26, 0.35)",
+        glowBlack: "0 0 25px rgba(26, 26, 26, 0.35)",
         innerNeon:
-          "0 0 40px rgba(255, 75, 203, 0.3), 0 0 60px rgba(65, 243, 255, 0.25)",
+          "0 0 40px rgba(255, 26, 26, 0.3), 0 0 60px rgba(200, 30, 30, 0.25)",
       },
       fontFamily: {
         display: [
