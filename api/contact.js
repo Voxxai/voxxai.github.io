@@ -36,7 +36,7 @@ export default async function handler(req, res) {
   try {
     // Format the message for Discord
     const discordMessage = {
-      content: "📨 **New Contact Form Submission**",
+      content: "@everyone 📨 **New Contact Form Submission**",
       embeds: [
         {
           title: "🚀 New Message from Portfolio",
