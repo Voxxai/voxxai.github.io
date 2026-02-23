@@ -7,47 +7,75 @@ interface AboutProps {
 
 export const About: React.FC<AboutProps> = ({ onNavigate }) => {
   return (
-    <main className="relative z-10 mx-auto min-h-screen max-w-3xl px-6 py-12 text-slate-200">
-      {/* Back button */}
-      <button
-        onClick={() => onNavigate("home")}
-        className="mb-8 flex items-center gap-2 font-mono text-sm text-neonCyan transition hover:text-neonPink group"
-      >
-        <span className="transition-transform group-hover:-translate-x-1">
-          &lt;
-        </span>
-        Back to Home
-      </button>
+    <main className="relative z-10">
+      <section className="mx-auto max-w-4xl px-6 py-20">
+        <div className="mb-16">
+          <h1 className="text-5xl font-bold text-white mb-6">About Me</h1>
+          <p className="text-xl text-slate-300 leading-relaxed">
+            I'm Voxxai, a full-stack engineer passionate about building elegant, performant web experiences.
+          </p>
+        </div>
 
-      {/* Content */}
-      <div className="neon-panel p-10">
-        <h1 className="mb-6 text-4xl font-bold text-white">About Voxxai</h1>
+        <div className="space-y-12">
+          {/* Background */}
+          <div className="bg-white/5 border border-white/10 rounded-xl p-8 backdrop-blur-xl">
+            <h2 className="text-2xl font-bold text-white mb-4">Background</h2>
+            <p className="text-slate-300 leading-relaxed mb-4">
+              I specialize in modern web development with a focus on React and TypeScript. My expertise spans frontend architecture, API design, and building scalable systems. I've worked on everything from interactive tools to full-stack applications.
+            </p>
+            <p className="text-slate-300 leading-relaxed">
+              Beyond code, I'm deeply into gaming, anime, and tech culture—influences that shape my design philosophy toward sleek, bold, and user-centric interfaces.
+            </p>
+          </div>
 
-        <p className="mb-4 text-lg leading-relaxed">
-          Hey, I’m <span className="font-semibold text-neonCyan">Voxxai</span> —
-          a software engineer with a strong focus on modern web development,
-          automation, and building things that actually feel good to use.
-        </p>
+          {/* Philosophy */}
+          <div className="bg-white/5 border border-white/10 rounded-xl p-8 backdrop-blur-xl">
+            <h2 className="text-2xl font-bold text-white mb-4">My Philosophy</h2>
+            <ul className="space-y-3 text-slate-300">
+              <li className="flex items-start gap-3">
+                <span className="text-neonRed font-bold mt-1">•</span>
+                <span><strong className="text-white">Clean Code:</strong> Maintainable, readable, and well-documented solutions</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-neonRed font-bold mt-1">•</span>
+                <span><strong className="text-white">User First:</strong> Design and performance decisions centered on user experience</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-neonRed font-bold mt-1">•</span>
+                <span><strong className="text-white">Shipping Fast:</strong> Rapid iteration while maintaining quality standards</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-neonRed font-bold mt-1">•</span>
+                <span><strong className="text-white">Continuous Learning:</strong> Staying updated with modern tooling and best practices</span>
+              </li>
+            </ul>
+          </div>
 
-        <p className="mb-4 text-lg leading-relaxed text-slate-300">
-          I work primarily with{" "}
-          <span className="text-white">React, TypeScript, and Node.js</span>,
-          alongside modern tooling for APIs, CI/CD, and cloud-based workflows. I
-          enjoy turning complex problems into clean, maintainable solutions.
-        </p>
+          {/* Current Focus */}
+          <div className="bg-gradient-to-br from-neonRed/10 to-neonBlack/10 border border-neonRed/30 rounded-xl p-8">
+            <h2 className="text-2xl font-bold text-white mb-4">Current Focus</h2>
+            <p className="text-slate-300 leading-relaxed">
+              I'm currently focused on building scalable React applications, exploring state management patterns, and diving deeper into performance optimization. I'm always looking for interesting projects and collaboration opportunities.
+            </p>
+          </div>
+        </div>
 
-        <p className="mb-4 text-lg leading-relaxed text-slate-300">
-          Outside of coding, I’m deeply into{" "}
-          <span className="text-white">gaming, anime, and tech culture</span>.
-          That influence shows up in my work through sleek UI, attention to
-          detail, and a preference for bold, futuristic design.
-        </p>
-
-        <p className="text-slate-400">
-          This site is my playground — a place to experiment, learn, and
-          showcase projects I’m proud of. More coming soon.
-        </p>
-      </div>
+        {/* CTA */}
+        <div className="mt-16 flex flex-wrap gap-4">
+          <button
+            onClick={() => onNavigate("projects")}
+            className="px-8 py-3 rounded-lg bg-neonRed text-black font-semibold hover:bg-white transition shadow-glowRed"
+          >
+            See My Work
+          </button>
+          <button
+            onClick={() => onNavigate("contact")}
+            className="px-8 py-3 rounded-lg border border-white/30 text-white font-semibold hover:border-neonRed hover:text-neonRed transition"
+          >
+            Get In Touch
+          </button>
+        </div>
+      </section>
     </main>
   );
 };
