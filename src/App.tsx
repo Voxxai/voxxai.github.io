@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { Analytics } from "@vercel/analytics/react";
 import { Home } from "./components/Home";
 import { About } from "./components/About";
 import { Projects } from "./components/Projects";
@@ -110,6 +111,9 @@ const App: React.FC = () => {
       <footer className="relative z-10 mx-auto flex max-w-6xl justify-center px-6 pb-8 pt-16 text-xs text-slate-500 border-t border-white/10 mt-20">
         <span>© {new Date().getFullYear()} Voxxai · Modern Web Engineer</span>
       </footer>
+
+      {/* Vercel Analytics */}
+      <Analytics />
     </div>
   );
 };
