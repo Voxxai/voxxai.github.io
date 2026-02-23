@@ -90,7 +90,6 @@ export const Contact: React.FC<ContactProps> = ({ onNavigate }) => {
       setCanSubmit(true);
     }
   };
-  };
 
   return (
     <main className="relative z-10">
