@@ -89,7 +89,7 @@ export const Contact: React.FC<ContactProps> = ({ onNavigate }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
           {/* Email Card */}
           <a
-            href="mailto:contact@voxxai.com"
+            href="mailto:gilkranendonk@gmail.com"
             className="group relative"
           >
             <div className="absolute -inset-0.5 bg-gradient-to-br from-neonRed/30 to-transparent rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-300" />
@@ -100,7 +100,7 @@ export const Contact: React.FC<ContactProps> = ({ onNavigate }) => {
                 Send me a message directly. I'll get back to you as soon as I can.
               </p>
               <span className="inline-flex items-center gap-2 text-neonRed font-semibold group-hover:text-white transition">
-                contact@voxxai.com →
+                gilkranendonk@gmail.com →
               </span>
             </Card>
           </a>
