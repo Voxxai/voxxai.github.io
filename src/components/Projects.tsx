@@ -102,9 +102,9 @@ export const Projects: React.FC<ProjectsProps> = ({ onNavigate }) => {
     fetchAndMergeRepos();
   }, []);
 
-  const activeProjects = projects.filter((project) => !project.archived);
-  const featuredProject = activeProjects.find((project) => project.isFeatured);
-  const otherProjects = activeProjects.filter((project) => !project.isFeatured);
+  const allProjects = projects;
+  const featuredProject = allProjects.find((project) => project.isFeatured);
+  const otherProjects = allProjects.filter((project) => !project.isFeatured);
 
   return (
     <main className="relative z-10">

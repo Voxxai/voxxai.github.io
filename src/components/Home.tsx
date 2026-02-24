@@ -97,12 +97,12 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               </span>
             </div>
             <a
-              href={featuredProject?.html_url}
+              href="https://calculator.voxxai.nl"
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-neonRed/10 border border-neonRed/60 text-neonRed font-semibold hover:bg-neonRed hover:text-black transition"
             >
-              Explore on GitHub →
+              Explore it yourself →
             </a>
           </div>
         </div>

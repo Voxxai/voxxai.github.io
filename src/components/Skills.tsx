@@ -48,15 +48,15 @@ export const Skills: React.FC<SkillsProps> = ({ onNavigate }) => {
         {/* Highlights */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
           <div className="bg-gradient-to-br from-neonRed/20 to-neonRed/5 border border-neonRed/30 rounded-xl p-8">
-            <div className="text-3xl font-bold text-neonRed mb-2">10+</div>
+            <div className="text-3xl font-bold text-neonRed mb-2">4+</div>
             <p className="text-slate-300">Years of Web Development</p>
           </div>
           <div className="bg-gradient-to-br from-neonRed/20 to-neonRed/5 border border-neonRed/30 rounded-xl p-8">
-            <div className="text-3xl font-bold text-neonRed mb-2">5+</div>
+            <div className="text-3xl font-bold text-neonRed mb-2">3+</div>
             <p className="text-slate-300">Production Applications</p>
           </div>
           <div className="bg-gradient-to-br from-neonRed/20 to-neonRed/5 border border-neonRed/30 rounded-xl p-8">
-            <div className="text-3xl font-bold text-neonRed mb-2">100%</div>
+            <div className="text-3xl font-bold text-neonRed mb-2">99%</div>
             <p className="text-slate-300">Test Coverage Committed</p>
           </div>
         </div>
