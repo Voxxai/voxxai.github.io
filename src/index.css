@@ -5,13 +5,21 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    @apply min-h-screen text-slate-100 font-display antialiased;
-    background:
+  html {
+    color-scheme: dark;
+    min-height: 100%;
+    /* Solid base so macOS overscroll / rubber-band isn’t default white (matches bg-midnight) */
+    background-color: #0a0a0a;
+    background-image:
       radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
       linear-gradient(135deg, #050505 0%, #0a0a0a 50%, #050505 100%);
     background-size: 50px 50px, 100% 100%;
     background-attachment: fixed;
+  }
+
+  body {
+    @apply min-h-screen text-slate-100 font-display antialiased;
+    background-color: transparent;
   }
 
   ::selection {
