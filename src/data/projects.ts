@@ -8,14 +8,6 @@ export type RepoCard = {
 
 export const projects: RepoCard[] = [
   {
-    name: "salaryCalculator",
-    description:
-      "Salary and shift calculator with automatic allowance detection, break calculations and local data storage.",
-    html_url: "https://github.com/Voxxai/salaryCalculator",
-    language: "TypeScript",
-    archived: false,
-  },
-  {
     name: "ProjectC",
     description:
       "Full-stack school platform (CRA + Node/Express/MySQL) covering events, news, profiles, and 2FA-secured auth.",
