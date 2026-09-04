@@ -23,13 +23,8 @@ const projectMeta: Record<
   string,
   { kind: string; number: string; liveUrl?: string }
 > = {
-  salaryCalculator: {
-    kind: "Web app",
-    number: "01",
-    liveUrl: "https://calculator.voxxai.nl",
-  },
-  ProjectC: { kind: "Archived school platform", number: "02" },
-  Django_Project: { kind: "Archived learning build", number: "03" },
+  ProjectC: { kind: "Archived school platform", number: "01" },
+  Django_Project: { kind: "Archived learning build", number: "02" },
 };
 
 function ExternalLink({
@@ -148,7 +143,7 @@ export default function HomePage() {
               <h2>Useful builds, not filler.</h2>
             </div>
             <p>
-              A small public archive: one active tool and two earlier builds.
+              A small public archive: two earlier builds.
               Every source link opens without an account.
             </p>
           </div>
@@ -161,7 +156,7 @@ export default function HomePage() {
             <div className="featured-project-copy">
               <div className="project-title-row">
                 <h3>{featuredProject.name}</h3>
-                <span className="status-badge">ACTIVE</span>
+                <span className="status-badge">\n                  {featuredProject.archived ? "ARCHIVED" : "ACTIVE"}\n                </span>
               </div>
               <p>{featuredProject.description}</p>
               <div className="project-footer">
