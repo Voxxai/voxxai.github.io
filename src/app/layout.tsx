@@ -5,11 +5,11 @@ import "../index.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "VOXXAI - Full-Stack Engineer",
+    default: "Voxxai — Software Engineer",
     template: "%s | VOXXAI",
   },
   description:
-    "Voxxai's portfolio. Full-stack engineer crafting modern web experiences with React, TypeScript, and elegant design. Specialized in frontend architecture, API design, and scalable systems.",
+    "Portfolio of Gilian Kranendonk (Voxxai), a software engineer building web apps, APIs and product systems.",
   keywords: [
     "Voxxai",
     "Full-Stack Developer",
@@ -22,18 +22,18 @@ export const metadata: Metadata = {
   authors: [{ name: "Voxxai" }],
   creator: "Voxxai",
   openGraph: {
-    title: "VOXXAI - Full-Stack Engineer",
+    title: "Voxxai — Software Engineer",
     description:
-      "Voxxai's portfolio. Full-stack engineer crafting modern web experiences with React, TypeScript, and elegant design.",
+      "Gilian Kranendonk builds web apps, APIs and product systems.",
     type: "website",
     locale: "en_US",
     siteName: "VOXXAI Portfolio",
   },
   twitter: {
-    card: "summary_large_image",
-    title: "VOXXAI - Full-Stack Engineer",
+    card: "summary",
+    title: "Voxxai — Software Engineer",
     description:
-      "Full-stack engineer crafting modern web experiences with React, TypeScript, and elegant design.",
+      "Gilian Kranendonk builds web apps, APIs and product systems.",
   },
   icons: {
     icon: "/favicon.svg",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
 export const viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#0a0a0a",
+  themeColor: "#080a0f",
 };
 
 export default function RootLayout({

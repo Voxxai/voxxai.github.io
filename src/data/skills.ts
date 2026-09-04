@@ -11,20 +11,20 @@ export const summarySkills: string[] = [
 export const skillsByCategory: { category: string; items: string[] }[] = [
   {
     category: "Frontend",
-    items: ["React", "TypeScript", "Tailwind", "Vite/CRA", "Accessibility"],
+    items: ["React", "Next.js", "TypeScript", "Tailwind", "Accessibility"],
   },
   {
     category: "Backend & APIs",
-    items: ["Node.js", "Express", "REST", "Auth", "PostgreSQL/MySQL"],
+    items: ["Node.js", "Laravel", "REST", "Auth", "PostgreSQL / MySQL"],
   },
   {
     category: "Architecture",
     items: [
       "Component systems",
-      "State mgmt",
+      "State management",
       "Caching",
       "Error handling",
-      "Observability basics",
+      "Observability",
     ],
   },
   {
@@ -33,17 +33,17 @@ export const skillsByCategory: { category: string; items: string[] }[] = [
       "Git/GitHub",
       "CI/CD",
       "Testing",
-      "Storybook",
-      "Linters/Formatters",
+      "Docker",
+      "Linters / formatters",
     ],
   },
   {
     category: "Ops & Hosting",
     items: [
       "GitHub Pages",
-      "Docker basics",
-      "Monitoring hooks",
-      "Cloud deploy patterns",
+      "CI / CD",
+      "Raspberry Pi",
+      "Cloud deployment",
     ],
   },
 ];
