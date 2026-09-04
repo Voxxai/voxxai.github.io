@@ -1,26 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="VOXXAI logo">
-  <defs>
-    <linearGradient id="redGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ff1a1a" />
-      <stop offset="100%" stop-color="#c81e1e" />
-    </linearGradient>
-    <filter id="redGlow" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
-      <feGaussianBlur stdDeviation="2.5" result="blur" />
-      <feMerge>
-        <feMergeNode in="blur" />
-        <feMergeNode in="SourceGraphic" />
-      </feMerge>
-    </filter>
-  </defs>
-
-  <!-- Background -->
-  <rect width="64" height="64" rx="12" fill="#0a0a0a" />
-
-  <!-- Border -->
-  <rect x="4" y="4" width="56" height="56" rx="10" fill="none" stroke="url(#redGradient)" stroke-width="2" opacity="0.6" />
-
-  <!-- V Letter -->
-  <g filter="url(#redGlow)" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-width="5" stroke="url(#redGradient)">
-    <path d="M20 18 L32 46 L44 18" />
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Voxxai V mark">
+  <rect width="64" height="64" fill="#080a0f" />
+  <path d="M9 11h12l11 28v15h-4L9 11Z" fill="#4974ff" />
+  <path d="M43 11h12L36 54h-4V39l11-28Z" fill="#f024ce" />
+  <path d="M47 7h9v4h-9z" fill="#d8ff3e" />
 </svg>

@@ -36,9 +36,11 @@ export const metadata: Metadata = {
       "Gilian Kranendonk builds web apps, APIs and product systems.",
   },
   icons: {
-    icon: "/favicon.svg",
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+    shortcut: "/favicon.svg",
+    apple: "/apple-touch-icon.png",
   },
-  metadataBase: new URL("https://voxxai.github.io"),
+  metadataBase: new URL("https://voxxai.nl"),
 };
 
 export const viewport = {

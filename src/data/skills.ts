@@ -1,49 +1,22 @@
-export const summarySkills: string[] = [
-  "React",
-  "TypeScript",
-  "Tailwind",
-  "Node",
-  "APIs",
-  "Testing",
-  "GitHub Pages",
-];
-
 export const skillsByCategory: { category: string; items: string[] }[] = [
   {
+    category: "Languages",
+    items: ["TypeScript", "JavaScript", "C#", "Python", "PHP", "Rust (learning)"],
+  },
+  {
     category: "Frontend",
-    items: ["React", "Next.js", "TypeScript", "Tailwind", "Accessibility"],
+    items: ["React", "Next.js", "Tailwind", "HTML", "CSS", "Accessibility"],
   },
   {
-    category: "Backend & APIs",
-    items: ["Node.js", "Laravel", "REST", "Auth", "PostgreSQL / MySQL"],
+    category: "Backend",
+    items: ["Node.js", "Laravel", ".NET", "REST APIs", "Authentication"],
   },
   {
-    category: "Architecture",
-    items: [
-      "Component systems",
-      "State management",
-      "Caching",
-      "Error handling",
-      "Observability",
-    ],
+    category: "Data & architecture",
+    items: ["PostgreSQL", "MySQL", "Data flows", "System design", "Automation"],
   },
   {
-    category: "Tooling",
-    items: [
-      "Git/GitHub",
-      "CI/CD",
-      "Testing",
-      "Docker",
-      "Linters / formatters",
-    ],
-  },
-  {
-    category: "Ops & Hosting",
-    items: [
-      "GitHub Pages",
-      "CI / CD",
-      "Raspberry Pi",
-      "Cloud deployment",
-    ],
+    category: "Systems",
+    items: ["Docker", "Linux", "Git / GitHub", "Raspberry Pi", "Azure", "AWS"],
   },
 ];

@@ -9,11 +9,13 @@ import {
 } from "lucide-react";
 import { projects } from "@/data/projects";
 import { skillsByCategory } from "@/data/skills";
+import { ChaosSwitch } from "@/components/ChaosSwitch";
+import { NowPlayingSignal } from "@/components/NowPlayingSignal";
 
 const mainLinks = [
   { href: "#work", label: "Work" },
   { href: "#about", label: "About" },
-  { href: "#stack", label: "Stack" },
+  { href: "#signal", label: "Off-screen" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -26,11 +28,8 @@ const projectMeta: Record<
     number: "01",
     liveUrl: "https://calculator.voxxai.nl",
   },
-  PirateGame: { kind: "Game prototype", number: "02" },
-  ProjectC: { kind: "Full-stack platform", number: "03" },
-  Django_Project: { kind: "Learning build", number: "04" },
-  PongGame: { kind: "Game prototype", number: "05" },
-  SpaceDefence: { kind: "Game prototype", number: "06" },
+  ProjectC: { kind: "Archived school platform", number: "02" },
+  Django_Project: { kind: "Archived learning build", number: "03" },
 };
 
 function ExternalLink({
@@ -82,13 +81,14 @@ export default function HomePage() {
           <div className="hero-copy">
             <p className="section-label">01 / GILIAN KRANENDONK</p>
             <h1 id="hero-title">
-              I build software
-              <span>that earns its place.</span>
+              Build it. Break it.
+              <span>Build it better.</span>
             </h1>
             <p className="hero-intro">
-              Software Engineer at Spaux. I work across web apps, APIs and
-              product systems—then spend the rest of my screen time on games,
-              anime and whatever tech rabbit hole wins that week.
+              Software Engineer with a soft spot for the machinery behind the
+              UI: APIs, authentication, architecture, data flows and
+              automation. I build things I need, things I want to understand
+              and occasionally things that should have taken five minutes.
             </p>
 
             <div className="hero-actions">
@@ -106,8 +106,8 @@ export default function HomePage() {
 
             <dl className="quick-facts">
               <div>
-                <dt>Currently</dt>
-                <dd>Building at Spaux</dd>
+                <dt>Focus</dt>
+                <dd>Backend · auth · automation</dd>
               </div>
               <div>
                 <dt>Based</dt>
@@ -116,8 +116,8 @@ export default function HomePage() {
                 </dd>
               </div>
               <div>
-                <dt>Off-hours</dt>
-                <dd>Games · anime · homelab</dd>
+                <dt>Exploring</dt>
+                <dd>Rust · Linux · AI tooling</dd>
               </div>
             </dl>
           </div>
@@ -136,7 +136,7 @@ export default function HomePage() {
             </div>
             <figcaption>
               <span>VØXX⟁I</span>
-              <span>PLAYER_01</span>
+              <ChaosSwitch />
             </figcaption>
           </figure>
         </section>
@@ -148,8 +148,8 @@ export default function HomePage() {
               <h2>Useful builds, not filler.</h2>
             </div>
             <p>
-              A mix of shipped tools, full-stack school work and game
-              prototypes. Every project taught me something I still use.
+              A small public archive: one active tool and two earlier builds.
+              Every source link opens without an account.
             </p>
           </div>
 
@@ -217,8 +217,8 @@ export default function HomePage() {
           <div className="about-copy">
             <p className="about-statement">
               I&apos;m Gilian, better known online as Voxxai. I graduated in
-              HBO-ICT Informatica and now build software professionally at
-              Spaux.
+              Computer Science at Hogeschool Rotterdam and now build software
+              professionally.
             </p>
             <div className="about-columns">
               <p>
@@ -261,8 +261,61 @@ export default function HomePage() {
           </div>
         </section>
 
+        <section className="signal-section section-frame" id="signal">
+          <div className="signal-heading">
+            <div>
+              <p className="section-label">05 / OFF-SCREEN SIGNAL</p>
+              <h2>The rest of the operating system.</h2>
+            </div>
+            <p>
+              Code is only one tab. The others usually contain a Docker log,
+              a game, a hardware rabbit hole or music at an unreasonable BPM.
+            </p>
+          </div>
+
+          <div className="signal-layout">
+            <div className="signal-notes">
+              <article>
+                <span>HOME_01</span>
+                <h3>Raspberry Pi 5</h3>
+                <p>Docker · Discord bot · Twitch bot · homelab experiments</p>
+              </article>
+              <article>
+                <span>QUEUE_02</span>
+                <h3>Games</h3>
+                <p>Warframe · Fortnite · ZZZ · Wuthering Waves</p>
+              </article>
+              <article>
+                <span>AUDIO_03</span>
+                <h3>High BPM only</h3>
+                <p>Hardcore · Frenchcore · Uptempo</p>
+              </article>
+              <article>
+                <span>RADAR_04</span>
+                <h3>Currently watching</h3>
+                <p>Anime · AI · hardware · whatever ships next</p>
+              </article>
+            </div>
+
+            <aside className="now-playing" aria-labelledby="now-playing-title">
+              <div className="now-playing-header">
+                <span id="now-playing-title">LIVE AUDIO SIGNAL</span>
+                <span>SPOTIFY</span>
+              </div>
+              <NowPlayingSignal />
+              <p>The BPM may be considered a health hazard.</p>
+              <ExternalLink
+                href="https://github.com/Voxxai/Spotify-Readme"
+                className="text-link now-playing-source"
+              >
+                Self-hosted public fork
+              </ExternalLink>
+            </aside>
+          </div>
+        </section>
+
         <section className="contact-section section-frame" id="contact">
-          <p className="section-label">05 / SAY HELLO</p>
+          <p className="section-label">06 / SAY HELLO</p>
           <div className="contact-layout">
             <h2>Got something worth building?</h2>
             <div className="contact-copy">
