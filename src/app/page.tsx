@@ -318,8 +318,8 @@ export default function HomePage() {
                 If you want to talk code, a project, or a particularly cursed
                 homelab idea, my inbox is open.
               </p>
-              <a className="email-link" href="mailto:gilkranendonk@gmail.com">
-                gilkranendonk@gmail.com
+              <a className="email-link" href="mailto:contact@voxxai.dev">
+                contact@voxxai.dev
                 <ArrowUpRight aria-hidden="true" size={26} />
               </a>
               <div className="social-links" aria-label="Social links">
@@ -329,7 +329,7 @@ export default function HomePage() {
                 <ExternalLink href="https://www.linkedin.com/in/gilian-kranendonk/">
                   <Linkedin aria-hidden="true" size={18} /> LinkedIn
                 </ExternalLink>
-                <a href="mailto:gilkranendonk@gmail.com">
+                <a href="mailto:contact@voxxai.dev">
                   <Mail aria-hidden="true" size={18} /> Email
                 </a>
               </div>
